@@ -1,0 +1,7 @@
+IDEAS FOR DESIGN:
+controller scheme, add DONE
+add sidesteps (no iframes, just move the player)
+enemy parry has stamina. After stamina runs out, they are open to stagger from attacks
+normal enemies parry less, bosses are parry heavy.
+projectiles for bosses? instead of parry, attack to cut them, or just have to sidestep
+cinematic sweeping camera shots of the level, with enemies lined up to fight

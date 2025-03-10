@@ -8,6 +8,7 @@ public class CursorControl : MonoBehaviour
     public Transform target;
 
     public float swordAngle;
+    [SerializeField] private bool mouse_mode_enabled; //toggle whether mouse or controller is used for sword angle (Nate)
 
     public EnemyParryWindow enemyParryWindow;
     void Start()
@@ -17,6 +18,14 @@ public class CursorControl : MonoBehaviour
     }
 
     void Update()
+    {
+        if (mouse_mode_enabled)
+        {
+            SetMousePositionToSwordAngle();
+        }   
+    }
+
+    private void SetMousePositionToSwordAngle()
     {
         // Move the custom cursor to follow the mouse position
         Vector3 mousePosition = Input.mousePosition;
@@ -28,13 +37,24 @@ public class CursorControl : MonoBehaviour
 
         Vector3 direction = mousePosition - screenCenter;
 
-        
+
         // Calculate angle (in degrees) and apply rotation
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         cursorTransform.rotation = Quaternion.Euler(0, 0, angle - 90);
 
         swordAngle = 90 - angle;
+    }
+
+    public void SetSwordAngle(float new_sword_angle)
+    {
+        swordAngle = new_sword_angle;
+        cursorTransform.rotation = Quaternion.Euler(0, 0,-swordAngle);
+    }
+
+    public float GetSwordAngle()
+    {
+        return swordAngle;
     }
 
 
