@@ -162,4 +162,71 @@ public class PlayerMove : MonoBehaviour
         }
         
     }
+
+
+    //controller controls 
+    public void Parry()
+    {
+        if (actionLocked) { return; }
+
+        StopAllCoroutines();
+        float angle = cursorControl.swordAngle;
+        
+
+        float[] parryAngles = { 0, 45, 180, -90 };
+        // Find the closest angle
+        float closestAngle = parryAngles.OrderBy(a => Mathf.Abs(Mathf.DeltaAngle(a, angle))).First();
+        // Get the index of the closest angle
+        int closestIndex = Array.IndexOf(parryAngles, closestAngle);
+
+        string[] parryAnims = { "Armature|parryUp", "Armature|parryRight", "Armature|parryDown", "Armature|parryLeft" };
+        animator.CrossFade(parryAnims[closestIndex], 0.1f);
+
+        if (!enemyParryWindow.RegisterParry(angle))
+        {
+            actionLocked = true;
+            StartCoroutine(DisableActionLock(0.2f));
+        }
+        else
+        {
+            GameObject particle = Instantiate(parryParticle);
+            particle.transform.position = parryParticlePosition.position;
+            Vector3 forward = transform.forward.normalized;
+
+
+
+            // Rotate the orthogonal vector around the forward vector by 'angle' degrees
+            Quaternion rotation = Quaternion.AngleAxis(-angle, forward);
+            Vector3 rotatedVector = rotation * Vector3.up;
+
+            particle.transform.position += rotatedVector;
+        }
+    }
+
+    public void Swing()
+    {
+        if(actionLocked) { return; }
+        StopAllCoroutines();
+        float angle = cursorControl.swordAngle;
+        if (damageLocked) { return; }
+
+        float[] attackAngles = { 180, -100, 100, -30, 30 };
+        // Find the closest angle
+        float closestAngle = attackAngles.OrderBy(a => Mathf.Abs(Mathf.DeltaAngle(a, angle))).First();
+        // Get the index of the closest angle
+        int closestIndex = Array.IndexOf(attackAngles, closestAngle);
+
+        string[] attackAnims = { "Armature|attackDown", "Armature|attackLeft", "Armature|attackRight", "Armature|attackUpLeft", "Armature|attackUpRight" };
+
+        animator.CrossFade(attackAnims[closestIndex], 0.2f * (Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical"))));
+        actionLocked = true;
+        StartCoroutine(SendAttackSignal(closestAngle + 180));
+        StartCoroutine(DisableActionLock(0.5f));
+    }
+
+    public void Quickstep(bool direction) // for direction, false is left, true is right
+    {
+        // TODO: implement quickstep
+        Debug.Log("implement quickstep to use it");
+    }
 }
