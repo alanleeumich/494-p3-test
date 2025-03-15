@@ -33,18 +33,18 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!actionLocked)
-        {
-            float xAxis = Input.GetAxis("Horizontal");
-            float yAxis = Input.GetAxis("Vertical");
-            animator.SetFloat("XAxis", xAxis, 0.1f, Time.deltaTime);
-            animator.SetFloat("YAxis", yAxis, 0.1f, Time.deltaTime);
+        //if (!actionLocked)
+        //{
+        //    float xAxis = Input.GetAxis("Horizontal");
+        //    float yAxis = Input.GetAxis("Vertical");
+        //    animator.SetFloat("XAxis", xAxis, 0.1f, Time.deltaTime);
+        //    animator.SetFloat("YAxis", yAxis, 0.1f, Time.deltaTime);
 
-            Vector3 delta = transform.right * xAxis + transform.forward * yAxis;
-            characterController.Move(Vector3.ClampMagnitude(delta, 1) * speed * Time.deltaTime);
+        //    Vector3 delta = transform.right * xAxis + transform.forward * yAxis;
+        //    characterController.Move(Vector3.ClampMagnitude(delta, 1) * speed * Time.deltaTime);
 
             
-        }
+        //}
         Vector3 targetPosition = new Vector3(target.position.x, transform.position.y, target.position.z);
         transform.LookAt(targetPosition);
 
