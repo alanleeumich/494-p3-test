@@ -52,8 +52,6 @@ public class PlayerMove : MonoBehaviour
         //Vector3 targetPosition = new Vector3(target.position.x, transform.position.y, target.position.z);
         //transform.LookAt(targetPosition);
 
-        //this turns character to look in the same direction as the camera
-
         
 
 
@@ -149,7 +147,7 @@ public class PlayerMove : MonoBehaviour
 
     public void AngleCharacter(Vector3 direction)
     {
-        Vector3 targetPosition = new Vector3(direction.x, 1, direction.z);
+        Vector3 targetPosition = new Vector3(direction.x, 0, direction.z);
         transform.LookAt(targetPosition);
     }
 

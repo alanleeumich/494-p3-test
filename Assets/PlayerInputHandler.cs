@@ -48,15 +48,18 @@ public class PlayerInputHandler : MonoBehaviour
         float new_x = move_vector.x * Mathf.Cos(angle_in_radians) + move_vector.z * Mathf.Sin(angle_in_radians);
         float new_z = move_vector.z * Mathf.Cos(angle_in_radians) - move_vector.x * Mathf.Sin(angle_in_radians);
         Vector3 adjusted_move_vector = new Vector3(new_x, 0, new_z);
-        Debug.DrawLine(Vector3.zero, Vector3.up * 5f, Color.red);
-        Debug.DrawLine(transform.position + Vector3.up, adjusted_move_vector + Vector3.up, Color.red);
+        Debug.DrawLine(Vector3.zero, Vector3.up * 5f, Color.red, 5f);
+        Debug.DrawLine(transform.position + Vector3.up, transform.position + adjusted_move_vector + Vector3.up, Color.red);
 
         //move player with character controller
         character_controller.Move(adjusted_move_vector * Time.deltaTime * player_move.speed);
 
 
         //angle character towards same direction as camera
-       // player_move.AngleCharacter(adjusted_move_vector);
+        if (adjusted_move_vector.magnitude > 0.8)
+        {
+            player_move.AngleCharacter(transform.position + adjusted_move_vector);
+        }
 
         //animate movement
         animator.SetFloat("XAxis", adjusted_move_vector.x, 0.1f, Time.deltaTime);
@@ -110,6 +113,11 @@ public class PlayerInputHandler : MonoBehaviour
         
         
 
+    }
+
+    public void CheatsTester(InputAction.CallbackContext ctx)
+    {
+        player_move.AngleCharacter(Vector2.left);
     }
 
 }
