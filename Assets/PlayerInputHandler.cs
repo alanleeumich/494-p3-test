@@ -45,13 +45,18 @@ public class PlayerInputHandler : MonoBehaviour
         float angle = cinemachine_camera.transform.eulerAngles.y;
         float angle_in_radians = DegreeToRadian(angle);
 
-        Debug.Log("move_x to x axis is " + move_vector.x * Mathf.Cos(angle_in_radians));
-
         float new_x = move_vector.x * Mathf.Cos(angle_in_radians) + move_vector.z * Mathf.Sin(angle_in_radians);
         float new_z = move_vector.z * Mathf.Cos(angle_in_radians) - move_vector.x * Mathf.Sin(angle_in_radians);
         Vector3 adjusted_move_vector = new Vector3(new_x, 0, new_z);
+        Debug.DrawLine(Vector3.zero, Vector3.up * 5f, Color.red);
+        Debug.DrawLine(transform.position + Vector3.up, adjusted_move_vector + Vector3.up, Color.red);
+
         //move player with character controller
         character_controller.Move(adjusted_move_vector * Time.deltaTime * player_move.speed);
+
+
+        //angle character towards same direction as camera
+       // player_move.AngleCharacter(adjusted_move_vector);
 
         //animate movement
         animator.SetFloat("XAxis", adjusted_move_vector.x, 0.1f, Time.deltaTime);

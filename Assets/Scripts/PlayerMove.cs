@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Linq;
 using System;
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 public class PlayerMove : MonoBehaviour
 {
 
@@ -45,8 +46,17 @@ public class PlayerMove : MonoBehaviour
 
             
         //}
-        Vector3 targetPosition = new Vector3(target.position.x, transform.position.y, target.position.z);
-        transform.LookAt(targetPosition);
+
+        //this turns chacter to look at enemy
+
+        //Vector3 targetPosition = new Vector3(target.position.x, transform.position.y, target.position.z);
+        //transform.LookAt(targetPosition);
+
+        //this turns character to look in the same direction as the camera
+
+        
+
+
 
         Vector3 toTarget = target.position - transform.position;
         toTarget.y = 0;
@@ -56,10 +66,6 @@ public class PlayerMove : MonoBehaviour
             //Debug.Log(toTarget.magnitude);
             characterController.Move(transform.forward * -3f * Time.deltaTime);
         }
-
-        // Move the custom cursor to follow the mouse position
-        
-
         
 
     }
@@ -138,6 +144,13 @@ public class PlayerMove : MonoBehaviour
         StopCoroutine(DisableDamageLocked(0.1f));
         StartCoroutine(DisableDamageLocked(0.2f));
         */
+    }
+
+
+    public void AngleCharacter(Vector3 direction)
+    {
+        Vector3 targetPosition = new Vector3(direction.x, 1, direction.z);
+        transform.LookAt(targetPosition);
     }
 
 

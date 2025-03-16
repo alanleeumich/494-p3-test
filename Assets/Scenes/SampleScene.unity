@@ -6967,7 +6967,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6975,7 +6975,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.31
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8203,7 +8203,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1482891593}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d834fc47740447c991b6dc0d08e0e9f, type: 3}
   m_Name: 
@@ -23626,7 +23626,7 @@ PrefabInstance:
     - target: {fileID: 3198766347072213501, guid: 7036199b94cdcc6448dfa633640d8749, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: c07619f6cd3ecf14aa6f369addcac6f7, type: 2}
+      objectReference: {fileID: 2100000, guid: e9e6ddade0c458d439f89372cb4c8c22, type: 2}
     - target: {fileID: 3990410409746901141, guid: 7036199b94cdcc6448dfa633640d8749, type: 3}
       propertyPath: m_Mesh
       value: 
