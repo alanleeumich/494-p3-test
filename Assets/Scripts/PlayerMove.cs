@@ -55,7 +55,7 @@ public class PlayerMove : MonoBehaviour
         
 
 
-
+        /*
         Vector3 toTarget = target.position - transform.position;
         toTarget.y = 0;
 
@@ -64,6 +64,7 @@ public class PlayerMove : MonoBehaviour
             //Debug.Log(toTarget.magnitude);
             characterController.Move(transform.forward * -3f * Time.deltaTime);
         }
+        */
         
 
     }
@@ -145,10 +146,23 @@ public class PlayerMove : MonoBehaviour
     }
 
 
+    //angles player based on input vector (input vector is movement direction)
     public void AngleCharacter(Vector3 direction)
     {
         Vector3 targetPosition = new Vector3(direction.x, 0, direction.z);
         transform.LookAt(targetPosition);
+    }
+
+
+    //angles player towards target object
+    public void AngleCharacter()
+    {
+        transform.LookAt(target);
+    }
+
+    public void SetTarget(Transform _target)
+    {
+        target = _target;
     }
 
 

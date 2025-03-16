@@ -55,15 +55,18 @@ public class PlayerInputHandler : MonoBehaviour
         character_controller.Move(adjusted_move_vector * Time.deltaTime * player_move.speed);
 
 
-        //angle character towards same direction as camera
-        if (adjusted_move_vector.magnitude > 0.8)
+        //angle character towards same direction as camera or towards targetlock
+        if (!is_target_locked && adjusted_move_vector.magnitude > 0.8)
         {
             player_move.AngleCharacter(transform.position + adjusted_move_vector);
         }
+        if(is_target_locked){
+            player_move.AngleCharacter();
+        }
 
         //animate movement
-        animator.SetFloat("XAxis", adjusted_move_vector.x, 0.1f, Time.deltaTime);
-        animator.SetFloat("YAxis", adjusted_move_vector.y, 0.1f, Time.deltaTime);
+        animator.SetFloat("XAxis", Mathf.Abs(adjusted_move_vector.x), 0.1f, Time.deltaTime);
+        animator.SetFloat("YAxis", Mathf.Abs(adjusted_move_vector.z), 0.1f, Time.deltaTime);
     }
 
     private float DegreeToRadian(float rad)
@@ -110,6 +113,11 @@ public class PlayerInputHandler : MonoBehaviour
         camera_input_controller.enabled = !is_target_locked;
         if (is_target_locked) target_lock.PerformTargetLock();
         if (!is_target_locked) target_lock.ResetToPlayer();
+        if(is_target_locked)
+        {
+            Transform target = GameObject.Find("testing ball").transform;
+            player_move.SetTarget(target);
+        } 
         
         
 
