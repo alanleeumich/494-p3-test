@@ -34,6 +34,10 @@ public class ScoreKeeper : MonoBehaviour
         score += amount;
 
         scoreText.text = "Score: " + score.ToString();
+        if(score > 3)
+        {
+            //StartCoroutine(GameReset());
+        }
     }
 
     public void UpdateHealth(int amount)
@@ -49,4 +53,12 @@ public class ScoreKeeper : MonoBehaviour
         scoreText.text = "Score: " + score.ToString();
         healthText.text = "Health: " + health.ToString();
     }
+
+    //private IEnumerator GameReset()
+    //{
+    //    scoreText.text = "Enemy defetaed!!! You Win!";
+    //    yield return new WaitForSeconds(5f);
+    //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+    //}
 }

@@ -126,7 +126,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void CheatsTester(InputAction.CallbackContext ctx)
     {
-        player_move.AngleCharacter(Vector2.left);
+        target_lock.PerformTargetLock();
     }
 
 }

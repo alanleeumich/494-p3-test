@@ -5,6 +5,7 @@ public class TargetLock : MonoBehaviour
 {
     [SerializeField] Transform player_camera_focus_point;
     private CinemachineCamera cinemachine_camera;
+    [SerializeField] float enemy_search_distance;
     private void Start()
     {
         cinemachine_camera = GetComponent<CinemachineCamera>();
@@ -28,11 +29,15 @@ public class TargetLock : MonoBehaviour
     }
     private Transform FindNearestEnemyToTrack()
     {
-        //get list of nearby enemies
+        ////get list of nearby enemies
+        //Collider[] all_nearby_colliders = Physics.OverlapSphere(transform.position, enemy_search_distance);
+        //foreach (Collider coll in all_nearby_colliders)
+        //{
+        //    enemies.Add(coll.gameObject.transform);
+        //}
+        ////prioritize by closest in distance, restricted by angle of player's vision
 
-        //prioritize by closest in distance, restricted by angle of player's vision
-
-        //just for testing:
+        ////just for testing:
         return GameObject.Find("testing ball").transform;
     }
 
