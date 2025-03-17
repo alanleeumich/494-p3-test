@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -142,11 +143,14 @@ public class PlayerInputHandler : MonoBehaviour
         {
             Transform target = target_lock.PerformTargetLock();
             player_move.SetTarget(target);
+            cinemachine_camera.GetComponent<CinemachineOrbitalFollow>().enabled = false;
+            StartCoroutine(OverShoulderCamera());
         }
         if (!is_target_locked) 
         { 
             target_lock.ResetToPlayer();
             player_move.ClearTarget();
+            cinemachine_camera.GetComponent<CinemachineOrbitalFollow>().enabled = true;
         }
         
         //NOTE: only 1 enemy for goldspike, just target him
@@ -155,7 +159,22 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void CheatsTester(InputAction.CallbackContext ctx)
     {
-        target_lock.PerformTargetLock();
+        
+
+    }
+
+
+
+    [SerializeField] float over_shoulder_camera_height;
+    [SerializeField] float over_shoulder_camera_distance;
+
+    private IEnumerator OverShoulderCamera()
+    {
+        while (is_target_locked)
+        {
+            cinemachine_camera.transform.position = transform.position - (over_shoulder_camera_distance * forward_vector) + (over_shoulder_camera_height * Vector3.up);
+            yield return null;
+        }
     }
 
 

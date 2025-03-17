@@ -80,8 +80,10 @@ public class PlayerMove : MonoBehaviour
         characterController.Move(Vector3.ClampMagnitude(move_direction, 1) * speed * Time.deltaTime);
 
         //animate movement
-        animator.SetFloat("XAxis", Mathf.Abs(move_direction.x), 0.1f, Time.deltaTime);
-        animator.SetFloat("YAxis", Mathf.Abs(move_direction.z), 0.1f, Time.deltaTime);
+        float xAxis_for_anim = Input.GetAxis("Horizontal");
+        float yAxis_for_anim = Input.GetAxis("Vertical");
+        animator.SetFloat("XAxis", xAxis_for_anim, 0.1f, Time.deltaTime);
+        animator.SetFloat("YAxis", yAxis_for_anim, 0.1f, Time.deltaTime);
 
 
         //in freelook camera mode, player faces direction of camera

@@ -6,6 +6,8 @@ public class TargetLock : MonoBehaviour
     [SerializeField] Transform player_camera_focus_point;
     private CinemachineCamera cinemachine_camera;
     [SerializeField] float enemy_search_distance;
+
+
     private void Start()
     {
         cinemachine_camera = GetComponent<CinemachineCamera>();
