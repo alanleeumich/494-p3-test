@@ -46,9 +46,8 @@ public class ScoreKeeper : MonoBehaviour
         health += amount;
         if (health <= 0)
         {
-            Time.timeScale = 0;
             gameOver = true;
-            healthText.text = "You died, Game Over! Space to restart";
+            StartCoroutine(GameReset(false));
         }
 
         scoreText.text = "Score: " + score.ToString();
@@ -57,10 +56,17 @@ public class ScoreKeeper : MonoBehaviour
 
     private IEnumerator GameReset(bool you_won)
     {
-        if(you_won) scoreText.text = "Enemy defeated!!! You Win!";
-        if(!you_won) scoreText.text = "You died, Game Over!";
-        GameObject.Find("Enemy").SetActive(false);
-        yield return new WaitForSeconds(4f);
+        if (you_won)
+        {
+            scoreText.text = "Enemy defeated!!! You Win!";
+            GameObject.Find("Enemy").SetActive(false);
+        }
+        if (!you_won)
+        {
+            scoreText.text = "You Died! Game Over";
+            GameObject.Find("Player").SetActive(false);
+        }
+        yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
     }
