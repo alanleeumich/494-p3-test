@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 
 public class ScoreKeeper : MonoBehaviour
@@ -8,7 +9,7 @@ public class ScoreKeeper : MonoBehaviour
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI healthText;
-    public TextMeshProUGUI gameOverText;
+    public TextMeshProUGUI gameOverText; //ignore for now
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     int health = 10;
@@ -34,9 +35,9 @@ public class ScoreKeeper : MonoBehaviour
         score += amount;
 
         scoreText.text = "Score: " + score.ToString();
-        if(score > 3)
+        if(score >= 3)
         {
-            //StartCoroutine(GameReset());
+            StartCoroutine(GameReset(true));
         }
     }
 
@@ -47,18 +48,20 @@ public class ScoreKeeper : MonoBehaviour
         {
             Time.timeScale = 0;
             gameOver = true;
-            gameOverText.gameObject.SetActive(true);
+            healthText.text = "You died, Game Over! Space to restart";
         }
 
         scoreText.text = "Score: " + score.ToString();
         healthText.text = "Health: " + health.ToString();
     }
 
-    //private IEnumerator GameReset()
-    //{
-    //    scoreText.text = "Enemy defetaed!!! You Win!";
-    //    yield return new WaitForSeconds(5f);
-    //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    private IEnumerator GameReset(bool you_won)
+    {
+        if(you_won) scoreText.text = "Enemy defeated!!! You Win!";
+        if(!you_won) scoreText.text = "You died, Game Over!";
+        GameObject.Find("Enemy").SetActive(false);
+        yield return new WaitForSeconds(4f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
-    //}
+    }
 }

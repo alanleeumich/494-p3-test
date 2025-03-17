@@ -11,6 +11,7 @@ public class PlayerMove : MonoBehaviour
 
     Animator animator;
     CharacterController characterController;
+    PlayerInputHandler player_input_handler;
 
     public CursorControl cursorControl;
     public Transform target;
@@ -21,6 +22,7 @@ public class PlayerMove : MonoBehaviour
     bool actionLocked = false;
     bool damageLocked = false;
 
+    Vector3 move_direction;
    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -28,12 +30,19 @@ public class PlayerMove : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
+        player_input_handler =GetComponent<PlayerInputHandler>();
     }
 
 
     // Update is called once per frame
     void Update()
     {
+        if (!actionLocked)
+        {
+            Move();
+        }
+        
+        //LEGACY CODE
         //if (!actionLocked)
         //{
         //    float xAxis = Input.GetAxis("Horizontal");
@@ -44,7 +53,7 @@ public class PlayerMove : MonoBehaviour
         //    Vector3 delta = transform.right * xAxis + transform.forward * yAxis;
         //    characterController.Move(Vector3.ClampMagnitude(delta, 1) * speed * Time.deltaTime);
 
-            
+
         //}
 
         //this turns chacter to look at enemy
@@ -52,21 +61,44 @@ public class PlayerMove : MonoBehaviour
         //Vector3 targetPosition = new Vector3(target.position.x, transform.position.y, target.position.z);
         //transform.LookAt(targetPosition);
 
-        
+
+        //Vector3 toTarget = target.position - transform.position;
+        //toTarget.y = 0;
+
+        //if (toTarget.magnitude < 1.2)
+        //{
+        //    //Debug.Log(toTarget.magnitude);
+        //    characterController.Move(transform.forward * -3f * Time.deltaTime);
+        //}
+
+    }
+
+    //moves player, animates movement, and angles player as neccesary
+    //takes normalized(or close to normalized) Vector3 with y component set to 0
+    public void Move()
+    {
+        characterController.Move(Vector3.ClampMagnitude(move_direction, 1) * speed * Time.deltaTime);
+
+        //animate movement
+        animator.SetFloat("XAxis", Mathf.Abs(move_direction.x), 0.1f, Time.deltaTime);
+        animator.SetFloat("YAxis", Mathf.Abs(move_direction.z), 0.1f, Time.deltaTime);
 
 
-        /*
-        Vector3 toTarget = target.position - transform.position;
-        toTarget.y = 0;
-
-        if (toTarget.magnitude < 1.2)
+        //in freelook camera mode, player faces direction of camera
+        if(target == null)
         {
-            //Debug.Log(toTarget.magnitude);
-            characterController.Move(transform.forward * -3f * Time.deltaTime);
+            Vector3 camera_direction = player_input_handler.GetForwardVector();
+            AngleCharacter(camera_direction);
         }
-        */
-        
+        else // in targetlock mode, player faces target
+        {
+            AngleCharacter();
+        }
+    }
 
+    public void SetMoveDirection(Vector3 direction)
+    {
+        move_direction = direction;
     }
 
 
@@ -150,7 +182,7 @@ public class PlayerMove : MonoBehaviour
     public void AngleCharacter(Vector3 direction)
     {
         Vector3 targetPosition = new Vector3(direction.x, 0, direction.z);
-        transform.LookAt(targetPosition);
+        transform.LookAt(transform.position + targetPosition);
     }
 
 
@@ -163,6 +195,11 @@ public class PlayerMove : MonoBehaviour
     public void SetTarget(Transform _target)
     {
         target = _target;
+    }
+
+    public void ClearTarget()
+    {
+        target = null;
     }
 
 

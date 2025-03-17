@@ -15,12 +15,15 @@ public class TargetLock : MonoBehaviour
     {
         cinemachine_camera.LookAt = player_camera_focus_point;
     }
-    public void PerformTargetLock()
+
+    //sets camera to look at nearest enemy and returns that enemy's transform
+    public Transform PerformTargetLock()
     {
         Debug.Log("performing target lock");
 
         Transform target = FindNearestEnemyToTrack();
         SetLookAtTarget(target);
+        return target;
 
     }
     private void SetLookAtTarget(Transform target)
@@ -38,7 +41,10 @@ public class TargetLock : MonoBehaviour
         ////prioritize by closest in distance, restricted by angle of player's vision
 
         ////just for testing:
-        return GameObject.Find("testing ball").transform;
+        ///
+        Transform nearest_enemy = GameObject.Find("Enemy").transform;
+        return nearest_enemy;
+           
     }
 
 

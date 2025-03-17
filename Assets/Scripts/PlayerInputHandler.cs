@@ -12,6 +12,13 @@ public class PlayerInputHandler : MonoBehaviour
     TargetLock target_lock;
     Animator animator;
 
+    [SerializeField] bool using_mouse_sword_angle; //for cursor sword angle
+    private float sword_angle;
+
+    //this is the direction the camera points
+    [SerializeField] Vector3 forward_vector;
+
+
 
     private bool is_target_locked;
     private void Awake()
@@ -32,10 +39,27 @@ public class PlayerInputHandler : MonoBehaviour
         if (target_lock == null) { Debug.Log("cant find target lock script"); }
 
 
-
+        using_mouse_sword_angle = false;
         is_target_locked = false;
+        forward_vector = new Vector3(0, 0, 0);
     }
 
+    //maintains forward vector for camera
+    private void Update()
+    {
+        float camera_angle = DegreeToRadian(cinemachine_camera.transform.eulerAngles.y);
+        forward_vector.x = Mathf.Sin(camera_angle);
+        forward_vector.z = Mathf.Cos(camera_angle);
+    }
+
+    public Vector3 GetForwardVector()
+    {
+        return forward_vector;
+    }
+
+
+    //recognizes control input, corrects direction relative to camera, and sends corrected move vector to player_move
+    //DOES NOT: animate movement, actually move character, or angle character
     public void Move(InputAction.CallbackContext ctx)
     {
         //get move vector
@@ -48,26 +72,10 @@ public class PlayerInputHandler : MonoBehaviour
         float new_x = move_vector.x * Mathf.Cos(angle_in_radians) + move_vector.z * Mathf.Sin(angle_in_radians);
         float new_z = move_vector.z * Mathf.Cos(angle_in_radians) - move_vector.x * Mathf.Sin(angle_in_radians);
         Vector3 adjusted_move_vector = new Vector3(new_x, 0, new_z);
-        Debug.Log(adjusted_move_vector);
-        Debug.Log(Time.deltaTime);
 
-        //move player with character controller
-        transform.position = transform.position + adjusted_move_vector * Time.deltaTime;
-        //character_controller.Move(adjusted_move_vector * Time.deltaTime * player_move.speed);
-
-
-        //angle character towards same direction as camera or towards targetlock
-        if (!is_target_locked && adjusted_move_vector.magnitude > 0.8)
-        {
-            player_move.AngleCharacter(transform.position + adjusted_move_vector);
-        }
-        if(is_target_locked){
-            player_move.AngleCharacter();
-        }
-
-        //animate movement
-        animator.SetFloat("XAxis", Mathf.Abs(adjusted_move_vector.x), 0.1f, Time.deltaTime);
-        animator.SetFloat("YAxis", Mathf.Abs(adjusted_move_vector.z), 0.1f, Time.deltaTime);
+        //move player with player_move
+        player_move.SetMoveDirection(adjusted_move_vector);
+        
     }
 
     private float DegreeToRadian(float rad)
@@ -106,27 +114,35 @@ public class PlayerInputHandler : MonoBehaviour
         player_move.Quickstep(true);
     }
 
-
+    //finds nearest enemy, sets camera to look at enemy, sets player_move target to enemy
     public void ToggleTargetLock(InputAction.CallbackContext ctx)
     {
         Debug.Log("camera toggle input recognized");
         is_target_locked = !is_target_locked;
         camera_input_controller.enabled = !is_target_locked;
-        if (is_target_locked) target_lock.PerformTargetLock();
-        if (!is_target_locked) target_lock.ResetToPlayer();
-        if(is_target_locked)
+        if (is_target_locked)
         {
-            Transform target = GameObject.Find("testing ball").transform;
+            Transform target = target_lock.PerformTargetLock();
             player_move.SetTarget(target);
-        } 
+        }
+        if (!is_target_locked) 
+        { 
+            target_lock.ResetToPlayer();
+            player_move.ClearTarget();
+        }
         
-        
+        //NOTE: only 1 enemy for goldspike, just target him
 
     }
 
     public void CheatsTester(InputAction.CallbackContext ctx)
     {
         target_lock.PerformTargetLock();
+    }
+
+    public void ToggleControlScheme(InputAction.CallbackContext ctx)
+    {
+        using_mouse_sword_angle = !using_mouse_sword_angle;
     }
 
 }
