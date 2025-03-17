@@ -574,13 +574,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 299707939}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2534013, y: -0.00000007908478, z: 0.00000002395827, w: 0.9673613}
-  m_LocalPosition: {x: 0, y: 3.45, z: -3.67}
+  m_LocalRotation: {x: 0.2534013, y: -0.000000017417655, z: 0.000000009293062, w: 0.9673613}
+  m_LocalPosition: {x: 55, y: 3.45, z: 66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 29.358, y: 80, z: 0}
+  m_LocalEulerAnglesHint: {x: 27.704, y: 21.01, z: 10.124}
 --- !u!114 &299707946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7502,7 +7502,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 876132626}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c66be3ab5e82418d9c313a44ed5bd0c, type: 3}
   m_Name: 
@@ -7511,7 +7511,7 @@ MonoBehaviour:
   cursorTransform: {fileID: 876132627}
   target: {fileID: 414040419}
   swordAngle: 0
-  mouse_mode_enabled: 0
+  mouse_mode_enabled: 1
   enemyParryWindow: {fileID: 701670897}
 --- !u!1001 &896638761
 PrefabInstance:
@@ -7523,7 +7523,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7531,7 +7531,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.33
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7730,7 +7730,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7738,7 +7738,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8092,7 +8092,7 @@ Transform:
   m_GameObject: {fileID: 1144185699}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2534013, y: 0.000000028829616, z: -0.000000007551949, w: 0.9673613}
-  m_LocalPosition: {x: 0, y: 2.45, z: -3.67}
+  m_LocalPosition: {x: 55, y: 2.45, z: 66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8907,7 +8907,7 @@ Transform:
   m_GameObject: {fileID: 1287444056}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: 0, y: 1.2, z: 0.33}
+  m_LocalPosition: {x: 55, y: 1.2, z: 70}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9313,7 +9313,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c534b526fdb8844b9adae19469f97d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  using_mouse_sword_angle: 0
   forward_vector: {x: 0, y: 0, z: 0}
 --- !u!114 &1482891605
 MonoBehaviour:
@@ -9488,6 +9487,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 8b127aab-9600-4b76-82b3-d34946ac8dee
     m_ActionName: 'PlayerMap/Toggle Keyboard/Controller[/Keyboard/k]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1482891604}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: Move
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: db26ec7e-552d-4b0e-b652-e4af1c4052a2
+    m_ActionName: 'Keyboard Mapping/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerMap

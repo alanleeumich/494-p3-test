@@ -8,7 +8,7 @@ public class CursorControl : MonoBehaviour
     public Transform target;
 
     public float swordAngle;
-    [SerializeField] private bool mouse_mode_enabled; //toggle whether mouse or controller is used for sword angle (Nate)
+    public bool mouse_mode_enabled; //toggle whether mouse or controller is used for sword angle (Nate)
 
     public EnemyParryWindow enemyParryWindow;
     void Start()

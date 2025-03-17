@@ -12,7 +12,6 @@ public class PlayerInputHandler : MonoBehaviour
     TargetLock target_lock;
     Animator animator;
 
-    [SerializeField] bool using_mouse_sword_angle; //for cursor sword angle
     private float sword_angle;
 
     //this is the direction the camera points
@@ -39,9 +38,28 @@ public class PlayerInputHandler : MonoBehaviour
         if (target_lock == null) { Debug.Log("cant find target lock script"); }
 
 
-        using_mouse_sword_angle = false;
         is_target_locked = false;
         forward_vector = new Vector3(0, 0, 0);
+    }
+
+
+    private void Start()
+    {
+        var devices = InputSystem.devices;
+
+        bool controllerConnected = false;
+        foreach (var device in devices)
+        {
+            if (device is Gamepad)
+            {
+                controllerConnected = true;
+                break;
+            }
+        }
+        if (controllerConnected)
+        {
+            cursor_control.mouse_mode_enabled = false;
+        }
     }
 
     //maintains forward vector for camera
@@ -140,9 +158,5 @@ public class PlayerInputHandler : MonoBehaviour
         target_lock.PerformTargetLock();
     }
 
-    public void ToggleControlScheme(InputAction.CallbackContext ctx)
-    {
-        using_mouse_sword_angle = !using_mouse_sword_angle;
-    }
 
 }
