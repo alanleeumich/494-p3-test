@@ -1,1 +1,1 @@
-Implemented an angle-based attacks and parries system
+Implemented an angle-based attacks and parries system. (Space/ Left Stick Click-in to toggle)
