@@ -7513,6 +7513,7 @@ MonoBehaviour:
   swordAngle: 0
   mouse_mode_enabled: 1
   enemyParryWindow: {fileID: 701670897}
+  playerInputHandler: {fileID: 1482891604}
 --- !u!1001 &896638761
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9219,7 +9220,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2.5
   parryCooldown: 0.3
-  cursorControl: {fileID: 876132630}
   target: {fileID: 0}
   enemyParryWindow: {fileID: 701670897}
   parryParticle: {fileID: 5024009746357069194, guid: ec3f674830402cc45bce805cf6493db7, type: 3}
@@ -9317,6 +9317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c534b526fdb8844b9adae19469f97d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cursor_control: {fileID: 876132630}
   forward_vector: {x: 0, y: 0, z: 0}
   over_shoulder_camera_height: 2
   over_shoulder_camera_distance: 3
