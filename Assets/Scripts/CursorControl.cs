@@ -11,6 +11,8 @@ public class CursorControl : MonoBehaviour
     public bool mouse_mode_enabled; //toggle whether mouse or controller is used for sword angle (Nate)
 
     public EnemyParryWindow enemyParryWindow;
+    public PlayerInputHandler playerInputHandler;
+
     void Start()
     {
         // Hide the default cursor
@@ -44,6 +46,7 @@ public class CursorControl : MonoBehaviour
         cursorTransform.rotation = Quaternion.Euler(0, 0, angle - 90);
 
         swordAngle = 90 - angle;
+        playerInputHandler.AngleSwordFromCursor(swordAngle);
     }
 
     public void SetSwordAngle(float new_sword_angle)

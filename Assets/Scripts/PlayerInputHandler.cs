@@ -5,20 +5,22 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputHandler : MonoBehaviour
 {
+    public CursorControl cursor_control;
+
     PlayerMove player_move;
     CharacterController character_controller;
-    CursorControl cursor_control;
     GameObject cinemachine_camera;
     CinemachineInputAxisController camera_input_controller;
     TargetLock target_lock;
     Animator animator;
 
     private float sword_angle;
+    private Vector2 moveInput = Vector2.zero;
 
     //this is the direction the camera points
     [SerializeField] Vector3 forward_vector;
 
-
+    
 
     private bool is_target_locked;
     private void Awake()
@@ -30,7 +32,6 @@ public class PlayerInputHandler : MonoBehaviour
         if(character_controller == null) { Debug.Log("cant find character controller to use controls"); }
         animator = GetComponent<Animator>();
         if (animator == null) { Debug.Log("cant find animator to animate movement"); }
-        cursor_control = player_move.cursorControl;
         if (character_controller == null) { Debug.Log("cant find cursor control to use controls"); }
         cinemachine_camera = GameObject.Find("FreeLook Camera");
         camera_input_controller = cinemachine_camera.GetComponent<CinemachineInputAxisController>();
@@ -76,25 +77,18 @@ public class PlayerInputHandler : MonoBehaviour
         return forward_vector;
     }
 
+    public Vector2 GetMoveInput()
+    {
+        return moveInput;
+    }
 
     //recognizes control input, corrects direction relative to camera, and sends corrected move vector to player_move
     //DOES NOT: animate movement, actually move character, or angle character
     public void Move(InputAction.CallbackContext ctx)
     {
         //get move vector
-        Vector3 move_vector = new Vector3(ctx.action.ReadValue<Vector2>().x, 0, ctx.action.ReadValue<Vector2>().y);
 
-        //align move vector to camera angle and correct magnitude
-        float angle = cinemachine_camera.transform.eulerAngles.y;
-        float angle_in_radians = DegreeToRadian(angle);
-
-        float new_x = move_vector.x * Mathf.Cos(angle_in_radians) + move_vector.z * Mathf.Sin(angle_in_radians);
-        float new_z = move_vector.z * Mathf.Cos(angle_in_radians) - move_vector.x * Mathf.Sin(angle_in_radians);
-        Vector3 adjusted_move_vector = new Vector3(new_x, 0, new_z);
-
-        //move player with player_move
-        player_move.SetMoveDirection(adjusted_move_vector);
-        
+        moveInput = new Vector2(ctx.action.ReadValue<Vector2>().x, ctx.action.ReadValue<Vector2>().y);
     }
 
     private float DegreeToRadian(float rad)
@@ -105,12 +99,12 @@ public class PlayerInputHandler : MonoBehaviour
     public void Swing(InputAction.CallbackContext ctx)
     {
         Debug.Log("swinging input recognized");
-        player_move.Swing();
+        player_move.Swing(sword_angle);
     }
     public void Parry(InputAction.CallbackContext ctx)
     {
         Debug.Log("parry input recognized");
-        player_move.Parry();
+        player_move.Parry(sword_angle);
     }
 
     public void AngleSword(InputAction.CallbackContext ctx)
@@ -120,7 +114,13 @@ public class PlayerInputHandler : MonoBehaviour
             Vector2 direction = ctx.action.ReadValue<Vector2>();
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             cursor_control.SetSwordAngle(90 - angle);
+            sword_angle = 90 - angle;
         }
+    }
+
+    public void AngleSwordFromCursor(float angle)
+    {
+        sword_angle =  angle; 
     }
 
     public void LeftQuickStep(InputAction.CallbackContext ctx)

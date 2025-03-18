@@ -13,7 +13,6 @@ public class PlayerMove : MonoBehaviour
     CharacterController characterController;
     PlayerInputHandler player_input_handler;
 
-    public CursorControl cursorControl;
     public Transform target;
     public EnemyParryWindow enemyParryWindow;
     public GameObject parryParticle;
@@ -22,7 +21,7 @@ public class PlayerMove : MonoBehaviour
     bool actionLocked = false;
     bool damageLocked = false;
 
-    Vector3 move_direction;
+
    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -77,17 +76,17 @@ public class PlayerMove : MonoBehaviour
     //takes normalized(or close to normalized) Vector3 with y component set to 0
     public void Move()
     {
-        characterController.Move(Vector3.ClampMagnitude(move_direction, 1) * speed * Time.deltaTime);
+        Vector2 moveInput = player_input_handler.GetMoveInput();
 
-        //animate movement
-        float xAxis_for_anim = Input.GetAxis("Horizontal");
-        float yAxis_for_anim = Input.GetAxis("Vertical");
-        animator.SetFloat("XAxis", xAxis_for_anim, 0.1f, Time.deltaTime);
-        animator.SetFloat("YAxis", yAxis_for_anim, 0.1f, Time.deltaTime);
+        animator.SetFloat("XAxis", moveInput.x, 0.1f, Time.deltaTime);
+        animator.SetFloat("YAxis", moveInput.y, 0.1f, Time.deltaTime);
+
+        Vector3 moveVector = Vector3.ClampMagnitude(transform.right * moveInput.x + transform.forward * moveInput.y, 1);
+        characterController.Move(moveVector * speed * Time.deltaTime);
 
 
         //in freelook camera mode, player faces direction of camera
-        if(target == null)
+        if (target == null)
         {
             Vector3 camera_direction = player_input_handler.GetForwardVector();
             AngleCharacter(camera_direction);
@@ -95,18 +94,14 @@ public class PlayerMove : MonoBehaviour
         else // in targetlock mode, player faces target
         {
             AngleCharacter();
+            EnforceDistanceFromTarget();
         }
-    }
-
-    public void SetMoveDirection(Vector3 direction)
-    {
-        move_direction = direction;
     }
 
 
     private void LateUpdate()
     {
-        
+        /*
 
         if ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) && !actionLocked)
         {
@@ -163,10 +158,11 @@ public class PlayerMove : MonoBehaviour
                 StartCoroutine(DisableActionLock(0.5f));
                 
             }
+            
             animator.SetFloat("XAxis", 0);
             animator.SetFloat("YAxis", 0);
             
-        }
+        }*/
     }
 
     public void TakeDamage()
@@ -179,6 +175,16 @@ public class PlayerMove : MonoBehaviour
         */
     }
 
+
+    public void EnforceDistanceFromTarget()
+    {
+        Vector3 toTarget = target.position - transform.position;
+        toTarget.y = 0;
+        if (toTarget.magnitude < 1.2f)
+        {
+            characterController.Move(transform.forward * -3f * Time.deltaTime);
+        }
+    }
 
     //angles player based on input vector (input vector is movement direction)
     public void AngleCharacter(Vector3 direction)
@@ -229,12 +235,12 @@ public class PlayerMove : MonoBehaviour
 
 
     //controller controls 
-    public void Parry()
+    public void Parry(float angle)
     {
         if (actionLocked) { return; }
-
+        animator.SetFloat("XAxis", 0);
+        animator.SetFloat("YAxis", 0);
         StopAllCoroutines();
-        float angle = cursorControl.swordAngle;
         
 
         float[] parryAngles = { 0, 45, 180, -90 };
@@ -267,13 +273,13 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    public void Swing()
+    public void Swing(float angle)
     {
         if(actionLocked) { return; }
         StopAllCoroutines();
-        float angle = cursorControl.swordAngle;
         if (damageLocked) { return; }
-
+        animator.SetFloat("XAxis", 0);
+        animator.SetFloat("YAxis", 0);
         float[] attackAngles = { 180, -100, 100, -30, 30 };
         // Find the closest angle
         float closestAngle = attackAngles.OrderBy(a => Mathf.Abs(Mathf.DeltaAngle(a, angle))).First();
