@@ -5,7 +5,7 @@ public class TakeDamage : MonoBehaviour
 {
     public Transform damageSpot;
     public Camera mainCamera;
-    public ScoreKeeper scoreKeeper;
+    public PlayerState playerState;
 
     public GameObject bloodSlash;
 
@@ -24,8 +24,6 @@ public class TakeDamage : MonoBehaviour
 
     public void Damage(float angle)
     {
-
-        
         StopAllCoroutines();
         GetComponent<PlayerMove>().TakeDamage();
         //bloodTransform.gameObject.SetActive(true);
@@ -33,9 +31,8 @@ public class TakeDamage : MonoBehaviour
         //bloodTransform.rotation = Quaternion.Euler(0, 0, 85 - angle);
         bloodSlash.GetComponent<ParticleSystem>().GetComponent<ParticleSystemRenderer>().enabled = true;
         StartCoroutine(RemoveSlash());
-        scoreKeeper.UpdateHealth(-1);
 
-
+        playerState.TakeDamage(20);
     }
 
     IEnumerator RemoveSlash()
