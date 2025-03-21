@@ -104,12 +104,10 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void Swing(InputAction.CallbackContext ctx)
     {
-        Debug.Log("swinging input recognized");
         player_move.Swing();
     }
     public void Parry(InputAction.CallbackContext ctx)
     {
-        Debug.Log("parry input recognized");
         player_move.Parry();
     }
 
@@ -126,16 +124,27 @@ public class PlayerInputHandler : MonoBehaviour
     public void LeftQuickStep(InputAction.CallbackContext ctx)
     {
         player_move.Quickstep(false);
+
     }
 
     public void RightQuickStep(InputAction.CallbackContext ctx)
     {
         player_move.Quickstep(true);
+
+        //for quic ktesting
+        EnemyDamagedEvent e = new EnemyDamagedEvent();
+        e.enemy_type = EnemyType.Rock;
+        EventBus.Publish(e);
     }
 
     //finds nearest enemy, sets camera to look at enemy, sets player_move target to enemy
     public void ToggleTargetLock(InputAction.CallbackContext ctx)
     {
+  
+
+
+
+        //legacy code:
         Debug.Log("camera toggle input recognized");
         is_target_locked = !is_target_locked;
         camera_input_controller.enabled = !is_target_locked;
@@ -159,7 +168,10 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void CheatsTester(InputAction.CallbackContext ctx)
     {
-        
+        EnemyDamagedEvent e = new EnemyDamagedEvent();
+        e.enemy_type = EnemyType.Rock;
+        e.enemy = GameObject.Find("Enemy");
+        EventBus.Publish<EnemyDamagedEvent>(e);
 
     }
 
