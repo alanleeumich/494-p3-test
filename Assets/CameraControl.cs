@@ -1,48 +1,38 @@
 using UnityEngine;
 
-public class FreeLookCamera : MonoBehaviour
+public class CameraControl : MonoBehaviour
 {
-    public float moveSpeed = 10f;
-    public float lookSpeed = 2f;
-    public float zoomSpeed = 10f;
-    public float minZoom = 5f;
-    public float maxZoom = 50f;
+    public Transform target;
+    public Transform parentPos;
+    public float rotationSpeed;
+    public float cameraTrackSpeed = 10;
 
-    private float yaw = 0f;
-    private float pitch = 0f;
-    private Camera cam;
+    Vector3 cameraTarget;
 
+    float targetStartY;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        cam = GetComponent<Camera>();
-        if (cam == null)
-        {
-            cam = Camera.main;
-        }
+        targetStartY = target.position.y;
+        cameraTarget = target.position;
+        transform.position = parentPos.position;
     }
 
+    // Update is called once per frame
     void Update()
     {
-        // Movement
-        float moveX = Input.GetAxis("Horizontal"); // A, D
-        float moveZ = Input.GetAxis("Vertical");   // W, S
-        float moveY = (Input.GetKey(KeyCode.Space) ? 1 : 0) - (Input.GetKey(KeyCode.LeftControl) ? 1 : 0); // Space and Left Control
+        transform.position = parentPos.position;
+        //Vector3 direction = new Vector3(target.position.x, targetStartY, target.position.z) - transform.position;
+        cameraTarget = Vector3.MoveTowards(cameraTarget, target.position, cameraTrackSpeed * Time.deltaTime);
+        Vector3 direction = new Vector3(cameraTarget.x, targetStartY, cameraTarget.z) - transform.position;
+        if (direction == Vector3.zero) return;
 
-        Vector3 move = transform.right * moveX + transform.forward * moveZ + transform.up * moveY;
-        transform.position += move * moveSpeed * Time.deltaTime;
+        // Calculate the target rotation
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
 
-        // Mouse Look
-        yaw += Input.GetAxis("Mouse X") * lookSpeed;
-        pitch -= Input.GetAxis("Mouse Y") * lookSpeed;
-        pitch = Mathf.Clamp(pitch, -90f, 90f);
-        transform.rotation = Quaternion.Euler(pitch, yaw, 0f);
-
-        // Scroll to Zoom
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-        if (cam != null)
-        {
-            cam.fieldOfView -= scroll * zoomSpeed;
-            cam.fieldOfView = Mathf.Clamp(cam.fieldOfView, minZoom, maxZoom);
-        }
+        // Smoothly rotate towards the target
+        transform.rotation = targetRotation;
+        //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 }
