@@ -23,9 +23,9 @@ public class AudioController : MonoBehaviour
 {
     private AudioSource audio_source;
 
-    [SerializeField] AudioClip[] sword_clash_sounds;
-    [SerializeField] AudioClip[] sword_slice_sounds;
+    [SerializeField] AudioClip[] parry_sounds;
     [SerializeField] AudioClip[] sword_swing_sounds;
+    [SerializeField] AudioClip[] sword_slice_sounds;
     [SerializeField] AudioClip[] knight_enemy_damage_sounds;
     [SerializeField] AudioClip rock_enemy_damage_sound;
     [SerializeField] AudioClip unarmored_enemy_damage_sound;
@@ -41,6 +41,7 @@ public class AudioController : MonoBehaviour
     private void Start()
     {
         audio_source = GetComponent<AudioSource>();
+        if (audio_source == null) { Debug.Log("audio controller gmae object has no audio_source"); }
         player_damage_subscription = EventBus.Subscribe<PlayerDamagedEvent>(PlayPlayerDamageSound);
         player_parry_subscription = EventBus.Subscribe<SuccessfulPlayerParryEvent>(PlaySwordClashSound);
         enemy_damage_subscription = EventBus.Subscribe<EnemyDamagedEvent>(PlayEnemyDamageSound);
@@ -63,16 +64,16 @@ public class AudioController : MonoBehaviour
     private void PlaySwordClashSound(SuccessfulPlayerParryEvent e)
     {
         //choose random swordclash sound
-        int random_index = Random.Range(0, sword_clash_sounds.Length);
-        AudioSource.PlayClipAtPoint(sword_clash_sounds[random_index], e.enemy.transform.position);
+        int random_index = Random.Range(0, parry_sounds.Length);
+        AudioSource.PlayClipAtPoint(parry_sounds[random_index], e.enemy.transform.position);
     }
 
     //duplicate function, fix later
     private void PlaySwordClashSound(SuccessfulEnemyParryEvent e)
     {
         //choose random swordclash sound
-        int random_index = Random.Range(0, sword_clash_sounds.Length);
-        AudioSource.PlayClipAtPoint(sword_clash_sounds[random_index], e.enemy.transform.position);
+        int random_index = Random.Range(0, parry_sounds.Length);
+        AudioSource.PlayClipAtPoint(parry_sounds[random_index], e.enemy.transform.position);
     }
     private void PlaySwordSliceSound(Vector3 location)
     {
@@ -89,22 +90,30 @@ public class AudioController : MonoBehaviour
 
     private void PlayEnemyDamageSound(EnemyDamagedEvent e)
     {
-        Debug.Log("got here" + e.enemy_type);
+        AudioSource enemy_audio_source = e.enemy.GetComponent<AudioSource>();
+        Debug.Log(enemy_audio_source);
+        AudioClip selected_clip = null;
         int random_index;
         switch (e.enemy_type)
         {
             case EnemyType.Knight:
                 random_index = Random.Range(0, knight_enemy_damage_sounds.Length);
                 AudioSource.PlayClipAtPoint(knight_enemy_damage_sounds[random_index], e.enemy.transform.position);
-                return;
+                break;
             case EnemyType.Rock:
-                Debug.Log(e.enemy.transform.position);
-                AudioSource.PlayClipAtPoint(rock_enemy_damage_sound, e.enemy.transform.position);
-                return;
+                selected_clip = rock_enemy_damage_sound;
+                
+                break;
             case EnemyType.Unarmored:
                 AudioSource.PlayClipAtPoint(unarmored_enemy_damage_sound, e.enemy.transform.position);
-                return;
+                break;
+            default:
+                selected_clip = rock_enemy_damage_sound;
+                break;
         }
+
+        enemy_audio_source.clip = selected_clip;
+        enemy_audio_source.Play();
         return;
     }
 
@@ -112,5 +121,11 @@ public class AudioController : MonoBehaviour
     {
         int random_index = Random.Range(0, player_damage_sounds.Length);
         AudioSource.PlayClipAtPoint(player_damage_sounds[random_index], e.player.transform.position);
+    }
+
+    //might not use this
+    private void PlayFootSteps()
+    {
+
     }
 }

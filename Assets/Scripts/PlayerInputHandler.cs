@@ -15,6 +15,8 @@ public class PlayerInputHandler : MonoBehaviour
 
     private float sword_angle;
 
+
+
     //this is the direction the camera points
     [SerializeField] Vector3 forward_vector;
 
@@ -37,7 +39,6 @@ public class PlayerInputHandler : MonoBehaviour
         if(camera_input_controller == null) { Debug.Log("cant find camera free look to use controls"); }
         target_lock = cinemachine_camera.GetComponent<TargetLock>();
         if (target_lock == null) { Debug.Log("cant find target lock script"); }
-
 
         is_target_locked = false;
         forward_vector = new Vector3(0, 0, 0);
@@ -81,8 +82,9 @@ public class PlayerInputHandler : MonoBehaviour
     //DOES NOT: animate movement, actually move character, or angle character
     public void Move(InputAction.CallbackContext ctx)
     {
-        //get move vector
-        Vector3 move_vector = new Vector3(ctx.action.ReadValue<Vector2>().x, 0, ctx.action.ReadValue<Vector2>().y);
+        
+            //get move vector
+            Vector3 move_vector = new Vector3(ctx.action.ReadValue<Vector2>().x, 0, ctx.action.ReadValue<Vector2>().y);
 
         //align move vector to camera angle and correct magnitude
         float angle = cinemachine_camera.transform.eulerAngles.y;

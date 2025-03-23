@@ -10,6 +10,7 @@ public class PlayerMove : MonoBehaviour
     public float parryCooldown = 0.3f;
 
     Animator animator;
+    DynamicFootStepSounds foot_sounds;
     CharacterController characterController;
     PlayerInputHandler player_input_handler;
 
@@ -22,13 +23,14 @@ public class PlayerMove : MonoBehaviour
     bool actionLocked = false;
     bool damageLocked = false;
 
-    Vector3 move_direction;
+    [SerializeField] Vector3 move_direction;
    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         animator = GetComponent<Animator>();
+        foot_sounds = GetComponent<DynamicFootStepSounds>();
         characterController = GetComponent<CharacterController>();
         player_input_handler =GetComponent<PlayerInputHandler>();
     }
@@ -85,9 +87,18 @@ public class PlayerMove : MonoBehaviour
         animator.SetFloat("XAxis", xAxis_for_anim, 0.1f, Time.deltaTime);
         animator.SetFloat("YAxis", yAxis_for_anim, 0.1f, Time.deltaTime);
 
+        //sounds for movement
+        if (move_direction.magnitude > 0)
+        {
+            foot_sounds.EnableFootStepSounds();
+        }
+        else
+        {
+            foot_sounds.DisableFootStepSounds();
+        }
 
         //in freelook camera mode, player faces direction of camera
-        if(target == null)
+        if (target == null)
         {
             Vector3 camera_direction = player_input_handler.GetForwardVector();
             AngleCharacter(camera_direction);
