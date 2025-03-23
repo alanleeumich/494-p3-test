@@ -7469,6 +7469,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &835156407
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 835156408}
+  m_Layer: 0
+  m_Name: CameraFocusPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &835156408
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835156407}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 925533609}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &839805832
 GameObject:
   m_ObjectHideFlags: 0
@@ -7967,6 +7998,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 835156408}
     - targetCorrespondingSourceObject: {fileID: -5957150245374061226, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
       insertIndex: -1
       addedObject: {fileID: 140866911}
@@ -8005,6 +8039,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 701670901}
   m_SourcePrefab: {fileID: 100100000, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
+--- !u!4 &925533609 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
+  m_PrefabInstance: {fileID: 925533608}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &945526781
 GameObject:
   m_ObjectHideFlags: 0
