@@ -97,12 +97,19 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void Swing(InputAction.CallbackContext ctx)
     {
-        player_move.Swing(sword_angle);
+        if (ctx.started)
+        {
+            player_move.Swing(sword_angle);
+        }
+        
     }
 
     public void Parry(InputAction.CallbackContext ctx)
     {
-        player_move.Parry(sword_angle);
+        if (ctx.started)
+        {
+            player_move.Parry(sword_angle);
+        }
     }
 
     public void AngleSword(InputAction.CallbackContext ctx)
@@ -179,12 +186,13 @@ public class PlayerInputHandler : MonoBehaviour
 
     [SerializeField] float over_shoulder_camera_height;
     [SerializeField] float over_shoulder_camera_distance;
+    [SerializeField] float over_shoulder_camera_side;
 
     private IEnumerator OverShoulderCamera()
     {
         while (is_target_locked)
         {
-            cinemachine_camera.transform.position = transform.position - (over_shoulder_camera_distance * forward_vector) + (over_shoulder_camera_height * Vector3.up);
+            cinemachine_camera.transform.position = transform.position - (over_shoulder_camera_distance * transform.forward) + (over_shoulder_camera_height * Vector3.up) + (over_shoulder_camera_side * transform.right);
             yield return null;
         }
     }
