@@ -4,6 +4,10 @@ using System.Collections.Generic;
 public class EnemyOne : EnemyAnims
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public float attackSpeedInput = 1;
+
+    public override float attackSpeed { get; set; }
+
     public override Dictionary<string, AnimNode> animNodes { get; set; } = new Dictionary<string, AnimNode>
     {
         {"rest" , new AnimNode(animName: "rest", animId: 0,
@@ -23,7 +27,8 @@ public class EnemyOne : EnemyAnims
             minDegree: -30, maxDegree: 30, degreePreference: 0.2f,
             transitions: new List<AnimTransition>{
                 new AnimTransition(1, "rest")
-         })},
+            }
+            )},
 
         {"2hit" , new AnimNode(animName: "2hit", animId: 6,
             minRange: 1f, maxRange: 1.3f, rangePreference: 0.2f,
@@ -178,6 +183,7 @@ public class EnemyOne : EnemyAnims
     {
         defaultRotateLeft = rotateNodes[0];
         defaultRotateRight = rotateNodes[1];
+        attackSpeed = attackSpeedInput;
 
     }
 
