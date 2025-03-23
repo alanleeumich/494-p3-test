@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
@@ -91,6 +92,7 @@ public class PlayerState : MonoBehaviour
         {
             gameOver = true;
             gameOverText.gameObject.SetActive(true);
+            StartCoroutine(FreezeAfterOneSecond());
         }
     }
 
@@ -148,5 +150,11 @@ public class PlayerState : MonoBehaviour
                 postProcessingVolume.weight = 0.01f;
             }
         }
+    }
+
+    IEnumerator FreezeAfterOneSecond()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+        Time.timeScale = 0f;
     }
 }

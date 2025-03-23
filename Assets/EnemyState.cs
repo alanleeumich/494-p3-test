@@ -1,8 +1,11 @@
 using System;
+using TMPro;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
 public class EnemyState : MonoBehaviour
 {
@@ -10,6 +13,8 @@ public class EnemyState : MonoBehaviour
     private int currentEnemyHealth;
 
     public GameObject enemyHealthBar;
+
+    public TextMeshProUGUI gameWinText;
     
     private int currentHealthWidth;
 
@@ -21,6 +26,8 @@ public class EnemyState : MonoBehaviour
     private RectTransform healthRT;
 
     private float intensityVelocity = 0f;
+
+    private bool gameOver = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -41,6 +48,11 @@ public class EnemyState : MonoBehaviour
             TakeDamage(20);
         }
 
+        if (gameOver && Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
         UpdateEnemyHealthBar();
     }
 
@@ -49,6 +61,13 @@ public class EnemyState : MonoBehaviour
         currentEnemyHealth = Math.Max(0, currentEnemyHealth - damage);
 
         targetHealthWidth = ((float) currentEnemyHealth / maxEnemyHealth) * maxHealthWidth;
+
+        if (currentEnemyHealth <= 0)
+        {
+            gameOver = true;
+            gameWinText.gameObject.SetActive(true);
+            StartCoroutine(FreezeAfterOneSecond());
+        }
     }
 
     void UpdateEnemyHealthBar()
@@ -64,5 +83,11 @@ public class EnemyState : MonoBehaviour
             
             healthRT.sizeDelta = new Vector2(newWidth, healthRT.sizeDelta.y);
         }   
+    }
+
+    IEnumerator FreezeAfterOneSecond()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+        Time.timeScale = 0f;
     }
 }
