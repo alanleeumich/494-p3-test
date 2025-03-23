@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &13464671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -736,7 +736,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
       propertyPath: m_TagString
@@ -975,11 +975,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4effa09927e14a45b2212e6ff35fa2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
-  lookSpeed: 2
-  zoomSpeed: 10
-  minZoom: 5
-  maxZoom: 50
+  target: {fileID: 2033100255}
+  parentPos: {fileID: 595862608}
+  rotationSpeed: 400
+  cameraTrackSpeed: 5
 --- !u!114 &205595088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2411,7 +2410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &494468928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3205,7 +3204,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5822821947120931875, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -3970,7 +3969,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &754984100
 Transform:
   m_ObjectHideFlags: 0
@@ -9478,7 +9477,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &821301772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15441,10 +15440,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3151071386307039855, guid: abc00000000014785366603515346324, type: 3}
+      propertyPath: m_Version
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5101682834130115228, guid: abc00000000014785366603515346324, type: 3}
+      propertyPath: m_LightUnit
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6201147839492189288, guid: abc00000000014785366603515346324, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1635583363}
   m_SourcePrefab: {fileID: 100100000, guid: abc00000000014785366603515346324, type: 3}
 --- !u!4 &1047128625 stripped
 Transform:
@@ -23068,6 +23078,34 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16554038e3ff6be4f83b32b65e0d60b3, type: 3}
+--- !u!1 &1635583361 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6201147839492189288, guid: abc00000000014785366603515346324, type: 3}
+  m_PrefabInstance: {fileID: 1032354905}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1635583363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635583361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1001 &1635688009
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24314,6 +24352,34 @@ Transform:
   - {fileID: 361793319}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1968496258 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5631460343657720521, guid: abc00000000010567635682164674932, type: 3}
+  m_PrefabInstance: {fileID: 2026845824}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1968496260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968496258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1001 &1975011591
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24787,10 +24853,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3716255814542726350, guid: abc00000000010567635682164674932, type: 3}
+      propertyPath: m_Version
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6837803180336520253, guid: abc00000000010567635682164674932, type: 3}
+      propertyPath: m_LightUnit
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5631460343657720521, guid: abc00000000010567635682164674932, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1968496260}
   m_SourcePrefab: {fileID: 100100000, guid: abc00000000010567635682164674932, type: 3}
 --- !u!4 &2028888644 stripped
 Transform:
