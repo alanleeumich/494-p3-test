@@ -97,12 +97,12 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void Swing(InputAction.CallbackContext ctx)
     {
-        player_move.Swing();
+        player_move.Swing(sword_angle);
     }
 
     public void Parry(InputAction.CallbackContext ctx)
     {
-        player_move.Parry();
+        player_move.Parry(sword_angle);
     }
 
     public void AngleSword(InputAction.CallbackContext ctx)

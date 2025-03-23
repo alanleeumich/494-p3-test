@@ -23,7 +23,6 @@ public class PlayerMove : MonoBehaviour
     bool damageLocked = false;
 
 
-    [SerializeField] Vector3 move_direction;
    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -88,7 +87,7 @@ public class PlayerMove : MonoBehaviour
         characterController.Move(moveVector * speed * Time.deltaTime);
 
         //sounds for movement
-        if (move_direction.magnitude > 0)
+        if (moveVector.magnitude > 0)
         {
             foot_sounds.EnableFootStepSounds();
         }
