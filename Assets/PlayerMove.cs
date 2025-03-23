@@ -17,6 +17,8 @@ public class PlayerMove : MonoBehaviour
     public GameObject parryParticle;
     public Transform parryParticlePosition;
 
+    public PlayerState playerState;
+
     bool actionLocked = false;
     bool damageLocked = false;
 
@@ -75,7 +77,6 @@ public class PlayerMove : MonoBehaviour
 
             float angle = cursorControl.swordAngle;
             
-
             if (Input.GetMouseButtonDown(1))
             {
                 float[] parryAngles = { 0, 45, 180, -90 };
@@ -107,9 +108,9 @@ public class PlayerMove : MonoBehaviour
                     particle.transform.position += rotatedVector;
                 }
             }
-            else if (Input.GetMouseButtonDown(0) && !damageLocked)
+            else if (Input.GetMouseButtonDown(0) && !damageLocked && playerState.CanAttack(20))
             {
-
+                playerState.DepleteStamina(20);
                 float[] attackAngles = { 180, -100, 100, -30,30};
                 // Find the closest angle
                 float closestAngle = attackAngles.OrderBy(a => Mathf.Abs(Mathf.DeltaAngle(a, angle))).First();
