@@ -6,6 +6,10 @@ TagManager:
   tags:
   - sword
   - enemy
+  - GrassyTerrain
+  - RockyTerrain
+  - SnowyTerrain
+  - SandyTerrain
   layers:
   - Default
   - TransparentFX
@@ -15,10 +19,10 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - GrassyTerrain
+  - RockyTerrain
+  - SnowyTerrain
+  - SandyTerrain
   - 
   - 
   - 

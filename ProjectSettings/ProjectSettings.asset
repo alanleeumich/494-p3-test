@@ -916,11 +916,11 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 59cda965-957c-44a6-b5fa-3c91c05e960a
+  cloudProjectId: 74607b29-a60b-4c32-aa34-e320d4c0690c
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: sword_game_494
-  organizationId: balan_ree
+  organizationId: bunryu1029
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

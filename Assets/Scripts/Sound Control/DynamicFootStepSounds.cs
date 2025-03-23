@@ -3,15 +3,16 @@ using UnityEngine;
 
 public enum SurfaceType
 {
-    Grass,Snow,Stone, Gravel
+    Grass,Snow,Rock, Sand
 }
 
+//USING TAGS TO DECIDE 
 public class DynamicFootStepSounds : MonoBehaviour
 {
     [SerializeField] AudioClip[] grass_steps;
     [SerializeField] AudioClip[] snow_steps;
-    [SerializeField] AudioClip[] stone_steps;
-    [SerializeField] AudioClip[] gravel_steps;
+    [SerializeField] AudioClip[] rock_steps;
+    [SerializeField] AudioClip[] sand_steps;
 
     [SerializeField] SurfaceType current_surface;
 
@@ -31,10 +32,15 @@ public class DynamicFootStepSounds : MonoBehaviour
     //temporary, for testing
     private void Update()
     {
-        if (sound_enabled && Time.frameCount % 20 == 0)
+        if (sound_enabled && Time.frameCount % 15 == 0)
         {
             PlayFootStep();
-            Debug.Log("footsteps played");
+            Debug.Log("footsteps played at frame" + Time.frameCount);
+        }
+        if(Time.frameCount % 30 == 0)
+        {
+            SetSurfaceType();
+            Debug.Log(current_surface + " is current surface");
         }
     }
 
@@ -46,8 +52,8 @@ public class DynamicFootStepSounds : MonoBehaviour
         {
             SurfaceType.Grass => grass_steps[index],
             SurfaceType.Snow => snow_steps[index],
-            SurfaceType.Stone => stone_steps[index],
-            SurfaceType.Gravel => gravel_steps[index]
+            SurfaceType.Rock => rock_steps[index],
+            SurfaceType.Sand => sand_steps[index]
         };
         AudioSource.PlayClipAtPoint(chosen_clip, transform.position);
     }
@@ -61,18 +67,49 @@ public class DynamicFootStepSounds : MonoBehaviour
                 return Random.Range(0, grass_steps.Length);
             case SurfaceType.Snow:
                 return Random.Range(0, snow_steps.Length);
-            case SurfaceType.Stone:
-                return Random.Range(0, stone_steps.Length);
-            case SurfaceType.Gravel:
-                return Random.Range(0, gravel_steps.Length);
+            case SurfaceType.Rock:
+                return Random.Range(0, rock_steps.Length);
+            case SurfaceType.Sand:
+                return Random.Range(0, sand_steps.Length);
             default:
                 return 0;
         }
     }
 
-    private void SetSurfaceType(SurfaceType type)
+    private void SetSurfaceType()
     {
-         current_surface = type;
+        LayerMask layer_mask = LayerMask.GetMask("GrassyTerrain",
+                                                "SnowyTerrain",
+                                                "RockyTerrain",
+                                                "SandyTerrain");
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position + Vector3.up, Vector3.down , out hit, layer_mask))
+        {
+            Debug.Log("hit");
+        }
+        Debug.Log(hit.collider.gameObject.layer);
+        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("SnowyTerrain"))
+        {
+            current_surface = SurfaceType.Snow;
+        }
+        else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("GrassyTerrain"))
+        {
+            current_surface = SurfaceType.Grass;
+        }
+        else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("RockyTerrain"))
+        {
+            current_surface = SurfaceType.Rock;
+        }
+        else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("SandyTerrain"))
+        {
+            current_surface = SurfaceType.Sand;
+        }
+        else
+        {
+            //do nothing
+            return;
+        }
+
     }
    
     public void EnableFootStepSounds()

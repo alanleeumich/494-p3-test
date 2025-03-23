@@ -192,7 +192,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &118799221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -627,7 +627,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 299707939}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0.12278782, y: 0.6963643, z: -0.12278782, w: 0.6963643}
   m_LocalPosition: {x: 51.261536, y: 2.9101007, z: 71.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -728,10 +728,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 299707939}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4afa82ae3200b82408d605c3dbdd1e38, type: 3}
+  m_Script: {fileID: 11500000, guid: f38bda98361e1de48a4ca2bd86ea3c17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damping: 0
+  Composition:
+    ScreenPosition: {x: 0, y: 0}
+    DeadZone:
+      Enabled: 0
+      Size: {x: 0.2, y: 0.2}
+    HardLimits:
+      Enabled: 0
+      Size: {x: 0.8, y: 0.8}
+      Offset: {x: 0, y: 0}
+  CenterOnActivate: 1
+  TargetOffset: {x: 0, y: 0, z: 0}
+  Damping: {x: 0.5, y: 0.5}
+  Lookahead:
+    Enabled: 0
+    Time: 0
+    Smoothing: 0
+    IgnoreY: 0
 --- !u!1 &365692613
 GameObject:
   m_ObjectHideFlags: 0
@@ -8137,38 +8153,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 945526781}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1031500418
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1031500419}
-  m_Layer: 0
-  m_Name: Camera Rig
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1031500419
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1031500418}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1144185700}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1044087408
 GameObject:
   m_ObjectHideFlags: 0
@@ -8285,12 +8269,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1144185699}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 51.261536, y: 1.9101007, z: 71.14}
+  m_LocalRotation: {x: 0.1227878, y: 0.6963643, z: -0.122787826, w: 0.6963642}
+  m_LocalPosition: {x: 51.261536, y: 2.9101007, z: 71.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1031500419}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1144185701
 MonoBehaviour:
@@ -9710,9 +9694,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5919e1544ec34b94aa41fa6c0757c74f, type: 3}
   - {fileID: 8300000, guid: be5347fb2a4a7bc449118642e1a00d8d, type: 3}
   - {fileID: 8300000, guid: d75ddab79c0d0624ab290b23b262dfc1, type: 3}
-  snow_steps: []
-  stone_steps: []
-  gravel_steps: []
+  snow_steps:
+  - {fileID: 8300000, guid: 9a3a86c680bac394fbcc44f05a11fe53, type: 3}
+  - {fileID: 8300000, guid: d105397ecd7b9154ca393d221e09cac2, type: 3}
+  - {fileID: 8300000, guid: 021c9d56d7ec3a240985c828d4366846, type: 3}
+  - {fileID: 8300000, guid: bf875b2d631097849990864efac87a22, type: 3}
+  rock_steps: []
+  sand_steps: []
   current_surface: 0
   sound_enabled: 0
 --- !u!82 &1482891608
@@ -20196,9 +20184,9 @@ GameObject:
   - component: {fileID: 1852177742}
   - component: {fileID: 1852177741}
   - component: {fileID: 1852177740}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: GrassyTerrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -25787,7 +25775,7 @@ SceneRoots:
   - {fileID: 453403177}
   - {fileID: 759654784}
   - {fileID: 1180085525}
-  - {fileID: 1031500419}
+  - {fileID: 1144185700}
   - {fileID: 299707945}
   - {fileID: 1356238198}
   - {fileID: 1191747794}

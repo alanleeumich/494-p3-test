@@ -21,7 +21,6 @@ public enum EnemyType
 
 public class AudioController : MonoBehaviour
 {
-    private AudioSource audio_source;
 
     [SerializeField] AudioClip[] parry_sounds;
     [SerializeField] AudioClip[] sword_swing_sounds;
@@ -41,14 +40,11 @@ public class AudioController : MonoBehaviour
 
     private void Start()
     {
-        audio_source = GetComponent<AudioSource>();
-        if (audio_source == null) { Debug.Log("audio controller gmae object has no audio_source"); }
 
         hit_attempt_subscription = EventBus.Subscribe<HitAttemptEvent>(PlaySwordSwingSound);
         player_damage_subscription = EventBus.Subscribe<PlayerDamagedEvent>(PlayPlayerDamageSound);
         player_parry_subscription = EventBus.Subscribe<SuccessfulPlayerParryEvent>(PlaySwordClashSound);
         enemy_damage_subscription = EventBus.Subscribe<EnemyDamagedEvent>(PlayEnemyDamageSound);
-        enemy_parry_subscription = EventBus.Subscribe<SuccessfulEnemyParryEvent>(PlaySwordClashSound);
         freelook_camera_transform = GameObject.Find("FreeLook Camera").transform;
 
     }
@@ -71,13 +67,6 @@ public class AudioController : MonoBehaviour
         AudioSource.PlayClipAtPoint(parry_sounds[random_index], e.enemy.transform.position);
     }
 
-    //duplicate function, fix later
-    private void PlaySwordClashSound(SuccessfulEnemyParryEvent e)
-    {
-        //choose random swordclash sound
-        int random_index = Random.Range(0, parry_sounds.Length);
-        AudioSource.PlayClipAtPoint(parry_sounds[random_index], e.enemy.transform.position);
-    }
     private void PlaySwordSliceSound(Vector3 location)
     {
         //choose random swordclash sound
