@@ -31,6 +31,7 @@ public class AudioController : MonoBehaviour
     [SerializeField] AudioClip unarmored_enemy_damage_sound;
     [SerializeField] AudioClip[] player_damage_sounds;
 
+    Subscription<HitAttemptEvent> hit_attempt_subscription;
     Subscription<SuccessfulEnemyParryEvent> enemy_parry_subscription;
     Subscription<SuccessfulPlayerParryEvent> player_parry_subscription;
     Subscription<PlayerDamagedEvent> player_damage_subscription;
@@ -42,6 +43,8 @@ public class AudioController : MonoBehaviour
     {
         audio_source = GetComponent<AudioSource>();
         if (audio_source == null) { Debug.Log("audio controller gmae object has no audio_source"); }
+
+        hit_attempt_subscription = EventBus.Subscribe<HitAttemptEvent>(PlaySwordSwingSound);
         player_damage_subscription = EventBus.Subscribe<PlayerDamagedEvent>(PlayPlayerDamageSound);
         player_parry_subscription = EventBus.Subscribe<SuccessfulPlayerParryEvent>(PlaySwordClashSound);
         enemy_damage_subscription = EventBus.Subscribe<EnemyDamagedEvent>(PlayEnemyDamageSound);
@@ -81,9 +84,10 @@ public class AudioController : MonoBehaviour
         int random_index = Random.Range(0, sword_slice_sounds.Length);
         AudioSource.PlayClipAtPoint(sword_slice_sounds[random_index], location);
     }
-    private void PlaySwordSwingSound(Vector3 location)
+    private void PlaySwordSwingSound(HitAttemptEvent e)
     {
         //choose random swordclash sound
+        Vector3 location = e.attacker.transform.position;
         int random_index = Random.Range(0, sword_swing_sounds.Length);
         AudioSource.PlayClipAtPoint(sword_swing_sounds[random_index], location);
     }

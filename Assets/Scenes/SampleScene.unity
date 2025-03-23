@@ -206,7 +206,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parry_sounds: []
-  sword_swing_sounds: []
+  sword_swing_sounds:
+  - {fileID: 8300000, guid: 42aef8f0ed58320408ec82881e808fc5, type: 3}
   sword_slice_sounds: []
   knight_enemy_damage_sounds: []
   rock_enemy_damage_sound: {fileID: 8300000, guid: 80e0d661560104341ab409c684019c81, type: 3}
@@ -6965,7 +6966,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 701670886}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 696d83c1732154a908ef5aaa42c327bc, type: 3}
   m_Name: 
@@ -6996,7 +6997,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 701670886}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95eef2d680d5a406abc606024dca7bd6, type: 3}
   m_Name: 
@@ -9381,6 +9382,7 @@ MonoBehaviour:
   enemyParryWindow: {fileID: 701670897}
   parryParticle: {fileID: 5024009746357069194, guid: ec3f674830402cc45bce805cf6493db7, type: 3}
   parryParticlePosition: {fileID: 1195782734}
+  move_direction: {x: 0, y: 0, z: 0}
 --- !u!4 &1482891596 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
@@ -9687,6 +9689,8 @@ MonoBehaviour:
   snow_steps: []
   stone_steps: []
   gravel_steps: []
+  current_surface: 0
+  sound_enabled: 0
 --- !u!82 &1482891608
 AudioSource:
   m_ObjectHideFlags: 0

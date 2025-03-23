@@ -34,6 +34,7 @@ public class DynamicFootStepSounds : MonoBehaviour
         if (sound_enabled && Time.frameCount % 20 == 0)
         {
             PlayFootStep();
+            Debug.Log("footsteps played");
         }
     }
 

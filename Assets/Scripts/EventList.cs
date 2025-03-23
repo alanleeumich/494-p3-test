@@ -34,10 +34,9 @@ public class HitAttemptEvent
     public GameObject attackee;
     public float damage;
     public float angle;
-    public HitAttemptEvent(GameObject _attacker, GameObject _attackee, float _damage, float _angle)
+    public HitAttemptEvent(GameObject _attacker, float _damage, float _angle)
     {
         attacker = _attacker;
-        attackee = _attackee;
         damage = _damage;
         angle = _angle;
     }

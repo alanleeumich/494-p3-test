@@ -244,6 +244,8 @@ public class PlayerMove : MonoBehaviour
     {
         if (actionLocked) { return; }
 
+        
+
         StopAllCoroutines();
         float angle = cursorControl.swordAngle;
         
@@ -285,6 +287,9 @@ public class PlayerMove : MonoBehaviour
         float angle = cursorControl.swordAngle;
         if (damageLocked) { return; }
 
+        HitAttemptEvent e = new HitAttemptEvent(gameObject, 1, angle);
+        EventBus.Publish<HitAttemptEvent>(e);
+
         float[] attackAngles = { 180, -100, 100, -30, 30 };
         // Find the closest angle
         float closestAngle = attackAngles.OrderBy(a => Mathf.Abs(Mathf.DeltaAngle(a, angle))).First();
@@ -296,7 +301,7 @@ public class PlayerMove : MonoBehaviour
         animator.CrossFade(attackAnims[closestIndex], 0.2f * (Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical"))));
         actionLocked = true;
         StartCoroutine(SendAttackSignal(closestAngle + 180));
-        StartCoroutine(DisableActionLock(0.5f));
+        StartCoroutine(DisableActionLock(0.6f));
     }
 
     public void Quickstep(bool direction) // for direction, false is left, true is right
