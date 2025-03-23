@@ -85,15 +85,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Toggle Keyboard/Controller",
-                    "type": "Button",
-                    "id": "8b127aab-9600-4b76-82b3-d34946ac8dee",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -308,12 +299,12 @@
                 },
                 {
                     "name": "",
-                    "id": "1eb516e7-6f02-49e8-8c2d-64b417827bdd",
-                    "path": "<Keyboard>/k",
+                    "id": "893476b4-2da5-4d50-acd6-e7506f4acbc3",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Toggle Keyboard/Controller",
+                    "action": "CheatsTest",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

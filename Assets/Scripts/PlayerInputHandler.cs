@@ -17,6 +17,8 @@ public class PlayerInputHandler : MonoBehaviour
     private float sword_angle;
     private Vector2 moveInput = Vector2.zero;
 
+
+
     //this is the direction the camera points
     [SerializeField] Vector3 forward_vector;
 
@@ -38,7 +40,6 @@ public class PlayerInputHandler : MonoBehaviour
         if(camera_input_controller == null) { Debug.Log("cant find camera free look to use controls"); }
         target_lock = cinemachine_camera.GetComponent<TargetLock>();
         if (target_lock == null) { Debug.Log("cant find target lock script"); }
-
 
         is_target_locked = false;
         forward_vector = new Vector3(0, 0, 0);
@@ -86,8 +87,6 @@ public class PlayerInputHandler : MonoBehaviour
     //DOES NOT: animate movement, actually move character, or angle character
     public void Move(InputAction.CallbackContext ctx)
     {
-        //get move vector
-
         moveInput = new Vector2(ctx.action.ReadValue<Vector2>().x, ctx.action.ReadValue<Vector2>().y);
     }
 
@@ -98,13 +97,12 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void Swing(InputAction.CallbackContext ctx)
     {
-        Debug.Log("swinging input recognized");
-        player_move.Swing(sword_angle);
+        player_move.Swing();
     }
+
     public void Parry(InputAction.CallbackContext ctx)
     {
-        Debug.Log("parry input recognized");
-        player_move.Parry(sword_angle);
+        player_move.Parry();
     }
 
     public void AngleSword(InputAction.CallbackContext ctx)
@@ -126,16 +124,27 @@ public class PlayerInputHandler : MonoBehaviour
     public void LeftQuickStep(InputAction.CallbackContext ctx)
     {
         player_move.Quickstep(false);
+
     }
 
     public void RightQuickStep(InputAction.CallbackContext ctx)
     {
         player_move.Quickstep(true);
+
+        //for quic ktesting
+        EnemyDamagedEvent e = new EnemyDamagedEvent();
+        e.enemy_type = EnemyType.Rock;
+        EventBus.Publish(e);
     }
 
     //finds nearest enemy, sets camera to look at enemy, sets player_move target to enemy
     public void ToggleTargetLock(InputAction.CallbackContext ctx)
     {
+  
+
+
+
+        //legacy code:
         Debug.Log("camera toggle input recognized");
         is_target_locked = !is_target_locked;
         camera_input_controller.enabled = !is_target_locked;
@@ -159,7 +168,10 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void CheatsTester(InputAction.CallbackContext ctx)
     {
-        
+        EnemyDamagedEvent e = new EnemyDamagedEvent();
+        e.enemy_type = EnemyType.Rock;
+        e.enemy = GameObject.Find("Enemy");
+        EventBus.Publish<EnemyDamagedEvent>(e);
 
     }
 

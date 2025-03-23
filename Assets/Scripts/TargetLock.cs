@@ -24,7 +24,8 @@ public class TargetLock : MonoBehaviour
         Debug.Log("performing target lock");
 
         Transform target = FindNearestEnemyToTrack();
-        SetLookAtTarget(target);
+        Transform camera_focus = target.GetChild(0);
+        SetLookAtTarget(camera_focus);
         return target;
 
     }

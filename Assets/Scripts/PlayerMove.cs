@@ -10,6 +10,7 @@ public class PlayerMove : MonoBehaviour
     public float parryCooldown = 0.3f;
 
     Animator animator;
+    DynamicFootStepSounds foot_sounds;
     CharacterController characterController;
     PlayerInputHandler player_input_handler;
 
@@ -22,12 +23,14 @@ public class PlayerMove : MonoBehaviour
     bool damageLocked = false;
 
 
+    [SerializeField] Vector3 move_direction;
    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         animator = GetComponent<Animator>();
+        foot_sounds = GetComponent<DynamicFootStepSounds>();
         characterController = GetComponent<CharacterController>();
         player_input_handler =GetComponent<PlayerInputHandler>();
     }
@@ -84,6 +87,15 @@ public class PlayerMove : MonoBehaviour
         Vector3 moveVector = Vector3.ClampMagnitude(transform.right * moveInput.x + transform.forward * moveInput.y, 1);
         characterController.Move(moveVector * speed * Time.deltaTime);
 
+        //sounds for movement
+        if (move_direction.magnitude > 0)
+        {
+            foot_sounds.EnableFootStepSounds();
+        }
+        else
+        {
+            foot_sounds.DisableFootStepSounds();
+        }
 
         //in freelook camera mode, player faces direction of camera
         if (target == null)
@@ -240,6 +252,7 @@ public class PlayerMove : MonoBehaviour
         if (actionLocked) { return; }
         animator.SetFloat("XAxis", 0);
         animator.SetFloat("YAxis", 0);
+
         StopAllCoroutines();
         
 
@@ -278,8 +291,13 @@ public class PlayerMove : MonoBehaviour
         if(actionLocked) { return; }
         StopAllCoroutines();
         if (damageLocked) { return; }
+
         animator.SetFloat("XAxis", 0);
         animator.SetFloat("YAxis", 0);
+
+        HitAttemptEvent e = new HitAttemptEvent(gameObject, 1, angle);
+        EventBus.Publish<HitAttemptEvent>(e);
+
         float[] attackAngles = { 180, -100, 100, -30, 30 };
         // Find the closest angle
         float closestAngle = attackAngles.OrderBy(a => Mathf.Abs(Mathf.DeltaAngle(a, angle))).First();
@@ -291,7 +309,7 @@ public class PlayerMove : MonoBehaviour
         animator.CrossFade(attackAnims[closestIndex], 0.2f * (Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical"))));
         actionLocked = true;
         StartCoroutine(SendAttackSignal(closestAngle + 180));
-        StartCoroutine(DisableActionLock(0.5f));
+        StartCoroutine(DisableActionLock(0.6f));
     }
 
     public void Quickstep(bool direction) // for direction, false is left, true is right
