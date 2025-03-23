@@ -26,13 +26,17 @@ public class PlayerState : MonoBehaviour
     private int maxStaminaWidth;
 
     private float targetHealthWidth;
+    private float targetStaminaWidth;
     public float lerpSpeed = .1f;
 
     private RectTransform healthRT;
+    private RectTransform staminaRT;
 
     private float intensityVelocity = 0f;
 
     public TextMeshProUGUI gameOverText;
+
+    private float lastAttackTime = 0;
 
     bool gameOver = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -45,9 +49,10 @@ public class PlayerState : MonoBehaviour
         maxStaminaWidth = Mathf.CeilToInt(playerStaminaBar.GetComponent<RectTransform>().sizeDelta.x);
 
         targetHealthWidth = maxHealthWidth;
-        currentStaminaWidth = maxStaminaWidth;
+        targetStaminaWidth = maxStaminaWidth;
 
         healthRT = playerHealthBar.GetComponent<RectTransform>();
+        staminaRT = playerStaminaBar.GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
@@ -60,7 +65,18 @@ public class PlayerState : MonoBehaviour
 
         UpdatePlayerHealthBar();
 
+        UpdateStaminaBar();
+
         UpdatePostProcessing();
+    }
+
+    public void DepleteStamina(int stamina)
+    {
+        lastAttackTime = Time.time;
+
+        currentPlayerStamina = Math.Max(0, currentPlayerStamina - stamina);
+
+        targetStaminaWidth = ((float) currentPlayerStamina / maxPlayerStamina) * maxStaminaWidth;
     }
 
     public void TakeDamage(int damage)
@@ -78,6 +94,11 @@ public class PlayerState : MonoBehaviour
         }
     }
 
+    public bool CanAttack(int minStamina)
+    {
+        return currentPlayerStamina >= minStamina;
+    }
+
     void UpdatePlayerHealthBar()
     {
         if (healthRT.sizeDelta.x > targetHealthWidth)
@@ -91,6 +112,29 @@ public class PlayerState : MonoBehaviour
             
             healthRT.sizeDelta = new Vector2(newWidth, healthRT.sizeDelta.y);
         }   
+    }
+
+    void UpdateStaminaBar()
+    {
+        if (staminaRT.sizeDelta.x != targetStaminaWidth)
+        {
+            float newWidth = Mathf.Lerp(staminaRT.sizeDelta.x, targetStaminaWidth, Time.deltaTime * lerpSpeed);
+
+            if (Mathf.Abs(newWidth - targetStaminaWidth) <= 0.02f) // Will never stop updating without this
+            {
+                newWidth = targetStaminaWidth;
+            }
+            
+            staminaRT.sizeDelta = new Vector2(newWidth, staminaRT.sizeDelta.y);
+        }
+
+        if (Time.time - lastAttackTime >= 2f && currentPlayerStamina < maxPlayerStamina)
+        {
+            currentPlayerStamina += 1;
+            currentPlayerStamina = Mathf.Max(currentPlayerStamina, maxPlayerStamina);
+
+            targetStaminaWidth = ((float) currentPlayerStamina / maxPlayerStamina) * maxStaminaWidth;
+        }
     }
 
     void UpdatePostProcessing()

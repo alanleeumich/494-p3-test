@@ -107,6 +107,7 @@ public class EnemyParryWindow : MonoBehaviour
 
     public void RegisterAttack(float angle)
     {
+        EnemyState state = GetComponent<EnemyState>();
 
         if (canParry)
         {
@@ -118,14 +119,14 @@ public class EnemyParryWindow : MonoBehaviour
             else
             {
                 damageSlash.TakeDamage(angle);
-                scoreKeeper.UpdateScore(1);
+                state.TakeDamage(20);
             }
             
         }
         else
         {
             damageSlash.TakeDamage(angle);
-            scoreKeeper.UpdateScore(1);
+            state.TakeDamage(20);
         }
     }
 
