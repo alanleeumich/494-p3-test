@@ -21,6 +21,7 @@ public class DynamicFootStepSounds : MonoBehaviour
     [SerializeField] bool sound_enabled;
     [SerializeField] float time_between_footsteps;
     [SerializeField] bool footsteps_playing;
+    [SerializeField] float volume_0_to_1;
     //This script will control footstep sounds on various surfaces
     //does NOT need audiosource
 
@@ -49,12 +50,11 @@ public class DynamicFootStepSounds : MonoBehaviour
         }
 
         //updates currnet surface regularly
-        if(Time.frameCount % 30 == 0)
+        if(Time.frameCount % 20 == 0)
         {
             //use terrain textures to get current surface type
             Terrain terrain = GameObject.Find("Terrain").GetComponent<Terrain>();
             int index = GetIndexFromTerrain(transform.position,terrain);
-            Debug.Log("index is: " + index);
             current_surface = IndexToSurfaceType(index);
         }
     }
@@ -71,7 +71,7 @@ public class DynamicFootStepSounds : MonoBehaviour
             SurfaceType.Dirt => dirt_steps[index],
             SurfaceType.Water => water_steps[index]
         };
-        AudioSource.PlayClipAtPoint(chosen_clip, transform.position);
+        AudioSource.PlayClipAtPoint(chosen_clip, transform.position, volume_0_to_1);
     }
 
     private int ChooseSoundIndex()

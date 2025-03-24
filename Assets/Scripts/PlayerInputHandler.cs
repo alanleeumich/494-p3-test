@@ -14,6 +14,8 @@ public class PlayerInputHandler : MonoBehaviour
     TargetLock target_lock;
     Animator animator;
 
+    CameraControl camera_control_script;
+
     private float sword_angle;
     private Vector2 moveInput = Vector2.zero;
 
@@ -40,6 +42,8 @@ public class PlayerInputHandler : MonoBehaviour
         if(camera_input_controller == null) { Debug.Log("cant find camera free look to use controls"); }
         target_lock = cinemachine_camera.GetComponent<TargetLock>();
         if (target_lock == null) { Debug.Log("cant find target lock script"); }
+        camera_control_script = GameObject.Find("Camera").GetComponent<CameraControl>();
+
 
         is_target_locked = false;
         forward_vector = new Vector3(0, 0, 0);
@@ -148,7 +152,7 @@ public class PlayerInputHandler : MonoBehaviour
     public void ToggleTargetLock(InputAction.CallbackContext ctx)
     {
   
-
+        //IDEA JUST TURN CINEMACHINE CAMERA OFF AND CAMERA CONTROL SCRIPT ON, SWAP WHICH IS ACTIVE!!!!!
 
 
         //legacy code:
@@ -159,14 +163,18 @@ public class PlayerInputHandler : MonoBehaviour
         {
             Transform target = target_lock.PerformTargetLock();
             player_move.SetTarget(target);
-            cinemachine_camera.GetComponent<CinemachineOrbitalFollow>().enabled = false;
-            StartCoroutine(OverShoulderCamera());
+            //swap from default cam to cinemachine
+            cinemachine_camera.GetComponent<CinemachineCamera>().enabled = false;
+            camera_control_script.enabled = true;
         }
         if (!is_target_locked) 
         { 
             target_lock.ResetToPlayer();
             player_move.ClearTarget();
-            cinemachine_camera.GetComponent<CinemachineOrbitalFollow>().enabled = true;
+
+            //swap from cinemachine to default cam
+            cinemachine_camera.GetComponent<CinemachineCamera>().enabled = true;
+            camera_control_script.enabled = false;
         }
         
         //NOTE: only 1 enemy for goldspike, just target him

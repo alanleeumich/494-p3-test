@@ -280,7 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190263607bfe24d47b8965246d726e7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  has_flow_effect: 0
+  has_flow_effect: 1
   default_intensity: 20
   offset: 3.5
   frequency: 1
@@ -6752,7 +6752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190263607bfe24d47b8965246d726e7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  has_flow_effect: 0
+  has_flow_effect: 1
   default_intensity: 20
   offset: 5.5
   frequency: 1
@@ -6938,7 +6938,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190263607bfe24d47b8965246d726e7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  has_flow_effect: 0
+  has_flow_effect: 1
   default_intensity: 20
   offset: 4
   frequency: 1
@@ -7089,7 +7089,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 701670886}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95eef2d680d5a406abc606024dca7bd6, type: 3}
   m_Name: 
@@ -7305,7 +7305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190263607bfe24d47b8965246d726e7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  has_flow_effect: 0
+  has_flow_effect: 1
   default_intensity: 20
   offset: 3
   frequency: 1
@@ -9057,7 +9057,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190263607bfe24d47b8965246d726e7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  has_flow_effect: 0
+  has_flow_effect: 1
   default_intensity: 20
   offset: 6
   frequency: 1
@@ -9802,6 +9802,7 @@ MonoBehaviour:
   sound_enabled: 0
   time_between_footsteps: 0.3
   footsteps_playing: 0
+  volume_0_to_1: 0.1
 --- !u!82 &1482891608
 AudioSource:
   m_ObjectHideFlags: 0
@@ -19938,7 +19939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190263607bfe24d47b8965246d726e7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  has_flow_effect: 0
+  has_flow_effect: 1
   default_intensity: 20
   offset: 5
   frequency: 1
@@ -20076,7 +20077,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190263607bfe24d47b8965246d726e7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  has_flow_effect: 0
+  has_flow_effect: 1
   default_intensity: 20
   offset: 4.5
   frequency: 1
