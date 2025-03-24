@@ -192,7 +192,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &118799221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,14 +205,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8939dc43213034b9c1f03ed6a65f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parry_sounds: []
+  parry_sounds:
+  - {fileID: 8300000, guid: 1e7f85b69858ab14da5804ab775e73b8, type: 3}
+  - {fileID: 8300000, guid: fbd71f884e85d5b46956bdab2059144e, type: 3}
+  - {fileID: 8300000, guid: debda15ec04c0a24994790a72069a314, type: 3}
   sword_swing_sounds:
   - {fileID: 8300000, guid: 42aef8f0ed58320408ec82881e808fc5, type: 3}
-  sword_slice_sounds: []
+  sword_slice_sounds:
+  - {fileID: 8300000, guid: f1bf3cd30550fdb4b9a5cbbd88e22769, type: 3}
+  - {fileID: 8300000, guid: 79658cf019c524e4aa3a6af55feaf6ef, type: 3}
+  - {fileID: 8300000, guid: d835707b39104a349b5ca14981edfc92, type: 3}
+  - {fileID: 8300000, guid: 2948b80cabe9677458dde7a653d40ad3, type: 3}
   knight_enemy_damage_sounds: []
   rock_enemy_damage_sound: {fileID: 8300000, guid: 80e0d661560104341ab409c684019c81, type: 3}
   unarmored_enemy_damage_sound: {fileID: 0}
-  player_damage_sounds: []
 --- !u!4 &118799222
 Transform:
   m_ObjectHideFlags: 0
@@ -479,6 +485,92 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 220013240}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &275729056
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 275729060}
+  - component: {fileID: 275729059}
+  - component: {fileID: 275729058}
+  m_Layer: 0
+  m_Name: water
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &275729058
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275729056}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 01f9f47636c6f7c4bb57a1f7ae5c4865, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &275729059
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275729056}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &275729060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275729056}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 86.83, y: 0.54, z: 85.23}
+  m_LocalScale: {x: 5, y: 1, z: 5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &299707939
 GameObject:
   m_ObjectHideFlags: 0
@@ -6997,7 +7089,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 701670886}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95eef2d680d5a406abc606024dca7bd6, type: 3}
   m_Name: 
@@ -9486,7 +9578,7 @@ MonoBehaviour:
   forward_vector: {x: 0, y: 0, z: 0}
   over_shoulder_camera_height: 2
   over_shoulder_camera_distance: 3
-  over_shoulder_camera_side: 0
+  over_shoulder_camera_side: 0.7
 --- !u!114 &1482891605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9700,9 +9792,16 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 021c9d56d7ec3a240985c828d4366846, type: 3}
   - {fileID: 8300000, guid: bf875b2d631097849990864efac87a22, type: 3}
   rock_steps: []
-  sand_steps: []
+  dirt_steps:
+  - {fileID: 8300000, guid: 696c7947134a59547a1acf815637e53e, type: 3}
+  - {fileID: 8300000, guid: ef58fca35b52f124c9b19bbb9299a6f9, type: 3}
+  - {fileID: 8300000, guid: 43825b5eb3debf947aa6d91ceaaffcbc, type: 3}
+  - {fileID: 8300000, guid: 3b9bd739737d57349a187b0384098b8f, type: 3}
+  water_steps: []
   current_surface: 0
   sound_enabled: 0
+  time_between_footsteps: 0.3
+  footsteps_playing: 0
 --- !u!82 &1482891608
 AudioSource:
   m_ObjectHideFlags: 0
@@ -25790,3 +25889,4 @@ SceneRoots:
   - {fileID: 3080406935873600826}
   - {fileID: 1489391238}
   - {fileID: 118799222}
+  - {fileID: 275729060}

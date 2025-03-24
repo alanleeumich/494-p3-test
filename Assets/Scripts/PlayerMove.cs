@@ -205,13 +205,14 @@ public class PlayerMove : MonoBehaviour
             actionLocked = true;
             StartCoroutine(DisableActionLock(0.2f));
         }
-        else
+        else //is this a successful parry???
         {
             GameObject particle = Instantiate(parryParticle);
             particle.transform.position = parryParticlePosition.position;
             Vector3 forward = transform.forward.normalized;
 
-
+            SuccessfulPlayerParryEvent e = new SuccessfulPlayerParryEvent(gameObject, angle);
+            EventBus.Publish<SuccessfulPlayerParryEvent>(e);
 
             // Rotate the orthogonal vector around the forward vector by 'angle' degrees
             Quaternion rotation = Quaternion.AngleAxis(-angle, forward);

@@ -57,7 +57,19 @@ public class PlayerDamagedEvent
     public float damage;
     public float attack_angle; // can be used for different flinching animations
     public bool is_staggering; //decides if player is stunned by attack
-
+    public PlayerDamagedEvent(GameObject _player, float _damage, float _attack_angle)
+    {
+        player = _player;
+        damage = _damage;
+        attack_angle = _attack_angle;
+    }
+    public PlayerDamagedEvent(GameObject _player, float _damage, float _attack_angle, bool _is_staggering)
+    {
+        player = _player;
+        damage = _damage;
+        attack_angle = _attack_angle;
+        is_staggering = _is_staggering;
+    }
 
 }
 

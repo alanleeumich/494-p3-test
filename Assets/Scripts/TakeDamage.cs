@@ -24,7 +24,12 @@ public class TakeDamage : MonoBehaviour
 
     public void Damage(float angle)
     {
-
+        if (gameObject.CompareTag("Player"))
+        {
+            PlayerDamagedEvent e = new PlayerDamagedEvent(gameObject, 1, angle);
+            EventBus.Publish<PlayerDamagedEvent>(e);
+        }
+        
         
         StopAllCoroutines();
         GetComponent<PlayerMove>().TakeDamage();

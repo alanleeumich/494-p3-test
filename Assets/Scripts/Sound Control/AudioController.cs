@@ -28,7 +28,6 @@ public class AudioController : MonoBehaviour
     [SerializeField] AudioClip[] knight_enemy_damage_sounds;
     [SerializeField] AudioClip rock_enemy_damage_sound;
     [SerializeField] AudioClip unarmored_enemy_damage_sound;
-    [SerializeField] AudioClip[] player_damage_sounds;
 
     Subscription<HitAttemptEvent> hit_attempt_subscription;
     Subscription<SuccessfulEnemyParryEvent> enemy_parry_subscription;
@@ -64,7 +63,7 @@ public class AudioController : MonoBehaviour
     {
         //choose random swordclash sound
         int random_index = Random.Range(0, parry_sounds.Length);
-        AudioSource.PlayClipAtPoint(parry_sounds[random_index], e.enemy.transform.position);
+        AudioSource.PlayClipAtPoint(parry_sounds[random_index], e.player.transform.position);
     }
 
     private void PlaySwordSliceSound(Vector3 location)
@@ -112,8 +111,8 @@ public class AudioController : MonoBehaviour
 
     private void PlayPlayerDamageSound(PlayerDamagedEvent e)
     {
-        int random_index = Random.Range(0, player_damage_sounds.Length);
-        AudioSource.PlayClipAtPoint(player_damage_sounds[random_index], e.player.transform.position);
+        int random_index = Random.Range(0, sword_slice_sounds.Length);
+        AudioSource.PlayClipAtPoint(sword_slice_sounds[random_index], e.player.transform.position);
     }
 
     //might not use this
