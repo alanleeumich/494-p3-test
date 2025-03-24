@@ -10,14 +10,21 @@ public class Rotate : MonoBehaviour
     public Transform RToe;
     public Transform LToe;
 
+    float toeStartHeight;
+
+    private void Start()
+    {
+        toeStartHeight = RToe.position.y;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (RToe.transform.position.y > 0.1f)
+        if (RToe.transform.position.y - toeStartHeight > 0.1f)
         {
             RotateAboutTransformToTarget(LToe);
         }
-        else if (LToe.transform.position.y > 0.1f)
+        else if (LToe.transform.position.y - toeStartHeight > 0.1f)
         {
             RotateAboutTransformToTarget(RToe);
         }
