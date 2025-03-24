@@ -21,6 +21,8 @@ public class AnimNode
 {
     public string animName;
     public int animId;
+    public float speed;
+
 
     public float minRange;
     public float maxRange;
@@ -38,7 +40,7 @@ public class AnimNode
     public AnimNode(string animName, int animId,
         float minRange, float maxRange, float rangePreference,
         float minDegree, float maxDegree, float degreePreference,
-        List<AnimTransition> transitions,
+        List<AnimTransition> transitions, float speed = 1f,
         TransitionOverride? transitionOverride = null)
     {
         this.animName = animName;
@@ -51,6 +53,7 @@ public class AnimNode
         this.degreePreference = degreePreference;
         this.transitionOverride = transitionOverride;
         this.transitions = transitions;
+        this.speed = speed;
     }
 }
 
@@ -133,6 +136,8 @@ public class EnemyAnimGraph : MonoBehaviour
     RotateNode defaultRotateLeft;
     RotateNode defaultRotateRight;
 
+    float attackSpeed;
+
     enum Substate
     {
         MainAnim,
@@ -161,9 +166,8 @@ public class EnemyAnimGraph : MonoBehaviour
         defaultRotateRight = enemyAnims.defaultRotateRight;
 
         rootMove = GetComponent<EnemyRootMove>();
-        animator.speed = 1f;
         parryStance = enemyAnims.startParryStance;
-
+        attackSpeed = enemyAnims.attackSpeed;
 
         
     }
@@ -209,11 +213,13 @@ public class EnemyAnimGraph : MonoBehaviour
         {
             return false;
         }
+        
         likelyhoods = likelyhoods.Select(i => i / likelyhoods.Sum()).ToList();
         currentAnimNode = counterNodes[SampleIndex(likelyhoods)];
         animator.CrossFade(currentAnimNode.animName, 0.08f);
         animNodeSubstate = Substate.MainAnim;
         rootMove.speed = 0;
+        animator.speed = currentAnimNode.speed * attackSpeed;
         return true;
     }
 
@@ -232,18 +238,22 @@ public class EnemyAnimGraph : MonoBehaviour
 
         if (needsRotate && needsMove)
         {
+
+            animator.speed = 1;
             RotateNode rotateNode = GetRotateNode(angleOffset, true);
             animator.SetInteger("transition", rotateNode.animId);
             animNodeSubstate = Substate.Rotate;
         }
         else if (needsRotate)
         {
+            animator.speed = 1;
             RotateNode rotateNode = GetRotateNode(angleOffset, false);
             animator.SetInteger("transition", rotateNode.animId);
             animNodeSubstate = Substate.Rotate;
         }
         else if (needsMove)
         {
+            animator.speed = 1;
             MoveNode moveNode = GetMoveNode(distance, currentAnimNode.minRange, currentAnimNode.maxRange);
             animator.SetInteger("transition", moveNode.animId);
             rootMove.speed = moveNode.manualMoveSpeed;
@@ -267,6 +277,7 @@ public class EnemyAnimGraph : MonoBehaviour
         }
         else
         {
+            animator.speed = attackSpeed * currentAnimNode.speed;
             animator.SetInteger("transition", currentAnimNode.animId);
             animNodeSubstate = Substate.MainAnim;
         }

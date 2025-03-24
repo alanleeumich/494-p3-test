@@ -79,6 +79,8 @@ public class PlayerMove : MonoBehaviour
             
             if (Input.GetMouseButtonDown(1))
             {
+                
+
                 float[] parryAngles = { 0, 45, 180, -90 };
                 // Find the closest angle
                 float closestAngle = parryAngles.OrderBy(a => Mathf.Abs(Mathf.DeltaAngle(a, angle))).First();
@@ -118,8 +120,16 @@ public class PlayerMove : MonoBehaviour
                 int closestIndex = Array.IndexOf(attackAngles, closestAngle);
 
                 string[] attackAnims = { "Armature|attackDown", "Armature|attackLeft", "Armature|attackRight", "Armature|attackUpLeft","Armature|attackUpRight" };
+                string attackAnim = attackAnims[closestIndex];
 
-                animator.CrossFade(attackAnims[closestIndex], 0.2f * (Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical"))));
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName(attackAnim))
+                {
+                    animator.Play(attackAnim, 0, 0f);
+                }
+                else
+                {
+                    animator.CrossFade(attackAnim, 0.2f * (Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical"))));
+                }
                 actionLocked = true;
                 StartCoroutine(SendAttackSignal(closestAngle + 180));
                 StartCoroutine(DisableActionLock(0.5f));

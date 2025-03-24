@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 public abstract class EnemyAnims : MonoBehaviour
 {
+
+    public abstract float attackSpeed { get; set; }
+
     public abstract Dictionary<string, AnimNode> animNodes { get; set; }
     public abstract List<RotateNode> rotateNodes { get; set; }
     public abstract List<MoveNode> moveNodes { get; set; }
