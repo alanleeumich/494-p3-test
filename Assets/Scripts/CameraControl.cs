@@ -3,7 +3,10 @@ using UnityEngine;
 public class CameraControl : MonoBehaviour
 {
     public Transform target;
+    //swpa shoulder view
     public Transform parentPos;
+    public Transform parentPosRight;
+    public Transform parentPosLeft;
     public float rotationSpeed;
     public float cameraTrackSpeed = 10;
 
@@ -22,6 +25,15 @@ public class CameraControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            parentPos = parentPosLeft;
+
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            parentPos = parentPosRight;
+        }
         transform.position = parentPos.position;
         //Vector3 direction = new Vector3(target.position.x, targetStartY, target.position.z) - transform.position;
         cameraTarget = Vector3.MoveTowards(cameraTarget, target.position, cameraTrackSpeed * Time.deltaTime);

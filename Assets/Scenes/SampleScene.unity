@@ -7089,7 +7089,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 701670886}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95eef2d680d5a406abc606024dca7bd6, type: 3}
   m_Name: 
@@ -7882,6 +7882,9 @@ PrefabInstance:
       addedObject: {fileID: 1044087409}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1066287920}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 793754410}
     - targetCorrespondingSourceObject: {fileID: -5957150245374061226, guid: 5d55d57715aeb49f29ad7777b0146337, type: 3}
       insertIndex: -1
@@ -8255,7 +8258,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1044087409}
   m_Layer: 0
-  m_Name: CameraPos
+  m_Name: CameraPosRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8276,6 +8279,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1482891596}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1066287919
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1066287920}
+  m_Layer: 0
+  m_Name: CameraPosLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1066287920
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066287919}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.13481282, y: 0.15555762, z: -0.038429487, w: 0.9778295}
+  m_LocalPosition: {x: -1.14, y: 1.55, z: -1.29}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1482891596}
+  m_LocalEulerAnglesHint: {x: 15.998, y: 17.8, z: -1.98}
 --- !u!1001 &1106038760
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8477,6 +8511,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 414040419}
   parentPos: {fileID: 1044087409}
+  parentPosRight: {fileID: 1044087409}
+  parentPosLeft: {fileID: 1066287920}
   rotationSpeed: 400
   cameraTrackSpeed: 5
 --- !u!114 &1144185705
