@@ -9,14 +9,16 @@ public class Attack
     public bool canStagger;
     public bool isSouthpaw;
     public bool enableParryOnEnd;
+    public int numOverlappingAttacks;
 
-    public Attack(float angle, int weaponId = 0, bool canStagger = false, bool isSouthpaw = false, bool enableParryOnEnd = false)
+    public Attack(float angle, int weaponId = 0, bool canStagger = false, bool isSouthpaw = false, bool enableParryOnEnd = false, int numOverlappingAttacks = 0)
     {
         this.angle = angle;
         this.weaponId = weaponId;
         this.canStagger = canStagger;
         this.isSouthpaw = isSouthpaw;
         this.enableParryOnEnd = enableParryOnEnd;
+        this.numOverlappingAttacks = numOverlappingAttacks;
     }
 }
 
@@ -55,13 +57,13 @@ public class EnemyParryWindow : MonoBehaviour
         attackBank = GetComponent<EnemyAttackBank>();
     }
 
-
-
     public void WindowStart(string attackName)
     {
         AttackInstance attack = new AttackInstance(attackBank.attacks[attackName]);
         canParry = false;
+        TrimCurrentAttacks(attack.attack.numOverlappingAttacks);
         currentAttacks.Add(attack);
+        
     }
 
     public void WindowEnd()
@@ -139,6 +141,18 @@ public class EnemyParryWindow : MonoBehaviour
             {
                 attack.landed = true;
             }
+        }
+    }
+
+    void TrimCurrentAttacks(int numExpectedAttacks)
+    {
+        if (numExpectedAttacks <= 0)
+        {
+            currentAttacks.Clear();
+        }
+        else if (numExpectedAttacks < currentAttacks.Count)
+        {
+            currentAttacks.RemoveRange(0, currentAttacks.Count - numExpectedAttacks);
         }
     }
 }
