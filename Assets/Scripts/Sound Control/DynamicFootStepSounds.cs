@@ -186,7 +186,6 @@ public class DynamicFootStepSounds : MonoBehaviour
 
     private IEnumerator FootStepPlayer()
     {
-        Debug.Log("inside ienum");
         footsteps_playing = true;
         while (true)
         {

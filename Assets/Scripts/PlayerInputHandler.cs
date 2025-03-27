@@ -183,10 +183,12 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void CheatsTester(InputAction.CallbackContext ctx)
     {
-        EnemyDamagedEvent e = new EnemyDamagedEvent();
-        e.enemy_type = EnemyType.Rock;
-        e.enemy = GameObject.Find("Enemy");
-        EventBus.Publish<EnemyDamagedEvent>(e);
+        if (ctx.started)
+        {
+            BeginCutSceneEvent e = new BeginCutSceneEvent(1, 8.0f, 1.0f);
+            if(e.focus_point == null) { Debug.Log("focus point is null"); }
+            EventBus.Publish<BeginCutSceneEvent>(e);
+        }
 
     }
 

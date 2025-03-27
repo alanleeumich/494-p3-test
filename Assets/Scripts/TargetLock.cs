@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -7,10 +8,15 @@ public class TargetLock : MonoBehaviour
     private CinemachineCamera cinemachine_camera;
     [SerializeField] float enemy_search_distance;
 
+    //EventBus subscriptions
+    Subscription<BeginCutSceneEvent> cut_scene_subscription;
 
     private void Start()
     {
         cinemachine_camera = GetComponent<CinemachineCamera>();
+
+        //EventBus subscriptions
+        cut_scene_subscription = EventBus.Subscribe<BeginCutSceneEvent>(OnBeginCutScene);
     }
 
     public void ResetToPlayer()
@@ -48,6 +54,17 @@ public class TargetLock : MonoBehaviour
         Transform nearest_enemy = GameObject.Find("Enemy").transform;
         return nearest_enemy;
            
+    }
+
+    private void OnBeginCutScene(BeginCutSceneEvent e)
+    {
+        StartCoroutine(CutSceneHelper(e));
+    }
+    private IEnumerator CutSceneHelper(BeginCutSceneEvent e)
+    {
+        cinemachine_camera.enabled = false;
+        yield return new WaitForSeconds(e.length_in_seconds + (2 * e.fade_to_black_time_in_seconds));
+        cinemachine_camera.enabled = true;
     }
 
 

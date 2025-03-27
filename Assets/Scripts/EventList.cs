@@ -13,7 +13,16 @@ public class EnableTargetLockEvent
 
 public class BeginCutSceneEvent
 {
-
+    public int spline_index;
+    public float length_in_seconds;
+    public float fade_to_black_time_in_seconds; //fade to black is a UI 
+    public Transform focus_point;
+    public BeginCutSceneEvent(int _spline_index, float _length_in_seconds, float _fade_to_black_time_in_seconds)
+    {
+        spline_index = _spline_index;
+        length_in_seconds = _length_in_seconds;
+        fade_to_black_time_in_seconds = _fade_to_black_time_in_seconds;
+    }
 }
 
 public class EndCutSceneEvent

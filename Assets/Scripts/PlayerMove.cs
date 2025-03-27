@@ -21,8 +21,10 @@ public class PlayerMove : MonoBehaviour
 
     bool actionLocked = false;
     bool damageLocked = false;
+    bool movement_enabled = true;
 
-
+    //eventbus subscriptions
+    Subscription<BeginCutSceneEvent> cut_scene_subscription;
    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -32,45 +34,28 @@ public class PlayerMove : MonoBehaviour
         foot_sounds = GetComponent<DynamicFootStepSounds>();
         characterController = GetComponent<CharacterController>();
         player_input_handler =GetComponent<PlayerInputHandler>();
+        movement_enabled = true;
+
+
+
+        //subscriptions to eventbus
+        cut_scene_subscription = EventBus.Subscribe<BeginCutSceneEvent>(OnCutSceneEvent);
     }
 
+    private void OnDestroy()
+    {
+        EventBus.Unsubscribe(cut_scene_subscription);
+    }
 
     // Update is called once per frame
     void Update()
     {
+        if(!movement_enabled) { return; }
         if (!actionLocked)
         {
             Move();
         }
-        
-        //LEGACY CODE
-        //if (!actionLocked)
-        //{
-        //    float xAxis = Input.GetAxis("Horizontal");
-        //    float yAxis = Input.GetAxis("Vertical");
-        //    animator.SetFloat("XAxis", xAxis, 0.1f, Time.deltaTime);
-        //    animator.SetFloat("YAxis", yAxis, 0.1f, Time.deltaTime);
 
-        //    Vector3 delta = transform.right * xAxis + transform.forward * yAxis;
-        //    characterController.Move(Vector3.ClampMagnitude(delta, 1) * speed * Time.deltaTime);
-
-
-        //}
-
-        //this turns chacter to look at enemy
-
-        //Vector3 targetPosition = new Vector3(target.position.x, transform.position.y, target.position.z);
-        //transform.LookAt(targetPosition);
-
-
-        //Vector3 toTarget = target.position - transform.position;
-        //toTarget.y = 0;
-
-        //if (toTarget.magnitude < 1.2)
-        //{
-        //    //Debug.Log(toTarget.magnitude);
-        //    characterController.Move(transform.forward * -3f * Time.deltaTime);
-        //}
 
     }
 
@@ -184,6 +169,7 @@ public class PlayerMove : MonoBehaviour
     //controller controls 
     public void Parry(float angle)
     {
+        if (!movement_enabled) { return; }
         if (actionLocked) { return; }
         animator.SetFloat("XAxis", 0);
         animator.SetFloat("YAxis", 0);
@@ -224,7 +210,8 @@ public class PlayerMove : MonoBehaviour
 
     public void Swing(float angle)
     {
-        if(actionLocked) { return; }
+        if (!movement_enabled) { return; }
+        if (actionLocked) { return; }
         StopAllCoroutines();
         if (damageLocked) { return; }
 
@@ -250,7 +237,23 @@ public class PlayerMove : MonoBehaviour
 
     public void Quickstep(bool direction) // for direction, false is left, true is right
     {
+        if (!movement_enabled) { return; }
         // TODO: implement quickstep
         Debug.Log("implement quickstep to use it");
+    }
+
+    private IEnumerator PauseMovement(float seconds_to_pause)
+    {
+        movement_enabled = false;
+        yield return new WaitForSeconds(seconds_to_pause);
+        movement_enabled = true;
+    }
+
+
+    //EventBus Subscription Functions
+
+    private void OnCutSceneEvent(BeginCutSceneEvent e)
+    {
+        StartCoroutine(PauseMovement(e.length_in_seconds + 4* e.fade_to_black_time_in_seconds));
     }
 }
