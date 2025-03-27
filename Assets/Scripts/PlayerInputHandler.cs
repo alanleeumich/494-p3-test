@@ -187,6 +187,7 @@ public class PlayerInputHandler : MonoBehaviour
         {
             BeginCutSceneEvent e = new BeginCutSceneEvent(1, 8.0f, 1.0f);
             if(e.focus_point == null) { Debug.Log("focus point is null"); }
+            e.focus_point = transform;
             EventBus.Publish<BeginCutSceneEvent>(e);
         }
 
